@@ -1,0 +1,95 @@
+# Build results
+
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio cache/options
+
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VSCode
+
+.idea/
+.vscode/
+
+# Build outputs
+
+*.dll
+*.exe
+*.pdb
+*.cache
+*.obj
+
+# NuGet
+
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Generated files
+
+Generated_Code/
+*.g.cs
+*.g.i.cs
+
+# Publish output
+
+publish/
+dist/
+
+# Logs
+
+*.log
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Resharper
+
+_ReSharper*/
+*.DotSettings.user
+
+# Test results
+
+TestResults/
+*.trx
+
+# WPF specific
+
+*.baml
+
+# Local settings
+
+appsettings.Development.json
+local.settings.json
+
+# Backup files
+
+*.bak
+*.tmp
+*.temp
+
+# Database files (optional depending on project)
+
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Visual Studio profiler
+
+*.psess
+*.vsp
+*.vspx
+
+# JetBrains Rider
+
+*.sln.iml
