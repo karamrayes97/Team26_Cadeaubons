@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Cadeaubons_Domain\Cadeaubons_Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Windows\" />
-  </ItemGroup>
-
 </Project>

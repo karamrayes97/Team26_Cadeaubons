@@ -17,6 +17,7 @@ namespace Cadeaubons.StartUp
             Domaincontroller dm = new();
 
             CadeaubonsApplication application = new(dm);
+            application.Start();
         }
     }
 
