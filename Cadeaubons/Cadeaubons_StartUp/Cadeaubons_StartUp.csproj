@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cadeaubons_Domain\Cadeaubons_Domain.csproj" />
-    <ProjectReference Include="..\Cadeaubons_Presentation2\Cadeaubons_Presentation.csproj" />
+    <ProjectReference Include="..\Cadeaubons_Presentation\Cadeaubons_Presentation.csproj" />
   </ItemGroup>
 
 </Project>

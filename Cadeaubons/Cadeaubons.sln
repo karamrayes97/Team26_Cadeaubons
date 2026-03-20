@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_Domain", "Cadeau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppTest", "ConsoleAppTest\ConsoleAppTest.csproj", "{F11885D7-2199-41C0-884A-37F69746920A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons.StartUp", "Cadeaubons.StartUp\Cadeaubons.StartUp.csproj", "{FA027498-BACC-4274-8C62-6FFC380E7F2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_StartUp", "Cadeaubons_StartUp\Cadeaubons_StartUp.csproj", "{FA027498-BACC-4274-8C62-6FFC380E7F2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_Presentation", "Cadeaubons_Presentation\Cadeaubons_Presentation.csproj", "{113D334D-3580-4596-B766-B5D1A282735E}"
 EndProject
