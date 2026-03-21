@@ -15,7 +15,7 @@ namespace Cadeaubons_Presentation
         }
         public void Start()
         {
-            StartWindow startWindow = new StartWindow();
+            StartWindow startWindow = new StartWindow(_domainController);
             startWindow.Show();
         }
     }

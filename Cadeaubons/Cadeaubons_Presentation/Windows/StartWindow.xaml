@@ -5,8 +5,73 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="StartWindow" Height="450" Width="800">
+        Title="Gift Voucher Platform"
+        Height="500"
+        Width="800"
+        MinHeight="450"
+        MinWidth="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#FFF5F5F5">
     <Grid>
         
+        <Border MaxWidth="420"
+                Padding="30"
+                Background="White"
+                BorderBrush="#FFD8D8D8"
+                BorderThickness="1"
+                CornerRadius="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="20">
+            <StackPanel>
+                <TextBlock Text="Welcome"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <TextBlock Text="Log in to your account or register as a new user."
+                           FontSize="14"
+                           Foreground="Gray"
+                           TextAlignment="Center"
+                           Margin="0,0,0,25"/>
+
+                <TextBlock Text="Email"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,5"/>
+                <TextBox x:Name="TxtEmail"
+                         Height="35"
+                         Margin="0,0,0,15"
+                         Padding="8"/>
+
+                <TextBlock Text="Password"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,5"/>
+                <PasswordBox x:Name="PwdPassword"
+                             Height="35"
+                             Margin="0,0,0,25"
+                             Padding="8"/>
+
+                <Button x:Name="BtnLogin"
+                        Content="Login"
+                        Height="40"
+                        Margin="0,0,0,12"
+                        FontWeight="SemiBold"
+                        Click="BtnLogin_Click"/>
+
+                <Button x:Name="BtnRegister"
+                        Content="Register as new user"
+                        Height="40"
+                        FontWeight="SemiBold"
+                        Click="BtnRegister_Click"/>
+
+                <TextBlock x:Name="TxtMessage"
+                           Margin="0,20,0,0"
+                           Foreground="DarkRed"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
