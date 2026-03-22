@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36623.8
+VisualStudioVersion = 17.14.37111.16 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_Domain", "Cadeaubons_Domain\Cadeaubons_Domain.csproj", "{DA2CBDE5-FFF7-4EF2-839F-36EE4007C1AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_Presentation", "Cadeaubons_Presentation\Cadeaubons_Presentation.csproj", "{CD26E02B-20D5-46DC-8087-F12DF8CBFE22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppTest", "ConsoleAppTest\ConsoleAppTest.csproj", "{F11885D7-2199-41C0-884A-37F69746920A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_XunitTesting", "Cadeaubons_XunitTesting\Cadeaubons_XunitTesting.csproj", "{293DA516-7DD2-4414-BB37-EB2C28AF3232}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F11885D7-2199-41C0-884A-37F69746920A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F11885D7-2199-41C0-884A-37F69746920A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F11885D7-2199-41C0-884A-37F69746920A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293DA516-7DD2-4414-BB37-EB2C28AF3232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293DA516-7DD2-4414-BB37-EB2C28AF3232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293DA516-7DD2-4414-BB37-EB2C28AF3232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293DA516-7DD2-4414-BB37-EB2C28AF3232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
