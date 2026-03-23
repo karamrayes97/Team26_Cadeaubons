@@ -1,4 +1,6 @@
-﻿using Cadeaubons_Domain.Repo;
+﻿using Cadeaubons_Domain.Model;
+using Cadeaubons_Domain.Security;
+using Cadeaubons_Domain.Repo;
 using Cadeaubons_Domain.Services;
 
 namespace ConsoleAppTest
@@ -10,14 +12,16 @@ namespace ConsoleAppTest
 			Repository repository = new Repository();
 			UserService userService = new UserService(repository);
 
-			var list = userService.GetUsers();
-
-			foreach (var item in list)
+			try
 			{
-				Console.WriteLine($"{item.Id} {item.FirstName}  {item.LastName}  {item.Email}");
+				string voucherNumber = VoucherNumberHelper.GenerateNumber();
+				Voucher voucher = new Voucher() { Number = voucherNumber, InitialAmount = 50};
+				Console.WriteLine(voucher);
+            }
+			catch (ArgumentException ex)
+			{
+				Console.WriteLine(ex.Message);
 			}
-
-
 		}
 	}
 }

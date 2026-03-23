@@ -11,26 +11,86 @@ namespace Cadeaubons_Domain.Model
 	[Table("Payments")]
 	public class Payment
 	{
-		[Key]
-		[Column("Id")]
-		public int Id { get; set; }
+        private int _id;
+        [Key]
+        [Column("Id")]
+        public int Id
+        {
+            get => _id;
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Id must be zero or positive.", nameof(Id));
 
-		[Column("Amount", TypeName = "decimal(10,2)")]
-		public decimal Amount { get; set; }
+                _id = value;
+            }
+        }
 
-		[Column("Date")]
-		public DateTime Date { get; set; }
+        private decimal _amount;
+        [Column("Amount", TypeName = "decimal(10,2)")]
+        public decimal Amount
+        {
+            get => _amount;
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Amount must be positive.", nameof(Amount));
 
-		[Column("Status")]
-		public string Status { get; set; }
+                _amount = value;
+            }
+        }
 
-		[Column("StripePaymentId")]
-		public string StripePaymentId { get; set; }
+        [Column("Date")]
+		public DateTime Date { get; } = DateTime.Now;
 
-		[ForeignKey("Voucher")]
-		[Column("VoucherId")]
-		public int VoucherId { get; set; }
+        [Column("Status")]
+		public PaymentStatus Status { get; set; }
 
-		public Voucher Voucher { get; set; }
-	}
+        private string _stripePaymentId = string.Empty;
+        [Column("StripePaymentId")]
+		public string StripePaymentId
+        {
+            get => _stripePaymentId;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Stripe payment id is required.", nameof(StripePaymentId));
+
+                _stripePaymentId = value.Trim();
+            }
+        }
+
+        [ForeignKey("Voucher")]
+        [Column("VoucherId")]
+        public int VoucherId { get; private set; }
+
+        private Voucher _voucher;
+        public Voucher Voucher
+        {
+            get => _voucher;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException("Voucher is required.", nameof(Voucher));
+
+                _voucher = value;
+                VoucherId = value.Id;
+            }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Payment payment &&
+                string.Equals(payment.StripePaymentId, StripePaymentId, StringComparison.OrdinalIgnoreCase);
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(StringComparer.OrdinalIgnoreCase.GetHashCode(StripePaymentId ?? string.Empty));
+        }
+
+        public override string ToString()
+        {
+            return $"Payment - Id: {Id}, Amount: {Amount:C}, Date: {Date:yyyy-MM-dd HH:mm}, Voucher: {Voucher?.Number}, Stripe payment id: {StripePaymentId}";
+        }
+    }
 }
