@@ -29,7 +29,7 @@ namespace Cadeaubons_XunitTesting
 			user.Email = "karamrayes@gmail.com";
 			user.PhoneNumber = "99999";
 			user.DateOfBirth = new DateTime(1997,1,1);
-			user.CreatedAt = DateTime.Now;
+			//user.CreatedAt = DateTime.Now;
 			user.IsActive = true;
 			user.PasswordHash = "hash123";
 			user.PasswordSalt = "salt123";
