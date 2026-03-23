@@ -18,9 +18,9 @@ namespace Cadeaubons_Presentation.Windows
     /// </summary>
     public partial class StartWindow : Window
     {
-        private readonly Domaincontroller _domainController;
+        private readonly DomainManager _domainController;
 
-        public StartWindow(Domaincontroller domainController)
+        public StartWindow(DomainManager domainController)
         {
             InitializeComponent();
             _domainController = domainController;
@@ -50,7 +50,7 @@ namespace Cadeaubons_Presentation.Windows
             try
             {
                 // call naar Domancontroller:
-                var user = _domainController.login(email, password);
+                var user = _domainController.Login(email, password);
 
                 if (user == null)
                 {
