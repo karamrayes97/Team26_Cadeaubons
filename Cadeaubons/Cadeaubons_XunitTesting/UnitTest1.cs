@@ -27,12 +27,12 @@ namespace Cadeaubons_XunitTesting
 			user.FirstName = "karam";
 			user.LastName = "rayes";
 			user.Email = "karamrayes@gmail.com";
-			user.PhoneNumber = "99999";
+			user.PhoneNumber = "0466335422";
 			user.DateOfBirth = new DateTime(1997,1,1);
 			//user.CreatedAt = DateTime.Now;
 			user.IsActive = true;
-			user.PasswordHash = "hash123";
-			user.PasswordSalt = "salt123";
+			//user.PasswordHash = "hash123";
+			//user.PasswordSalt = "salt123";
 			user.Role = Role.Admin;
 
 			// Act
@@ -44,6 +44,16 @@ namespace Cadeaubons_XunitTesting
 
 			Assert.Single(users);
 			Assert.Equal("karam", users.First().FirstName);
+		}
+
+		[Theory]
+		[InlineData("")]
+		[InlineData(null)]
+		public void Validate_ShouldThrow_WhenNameInvalid(string name)
+		{
+			var user = new User();
+
+			Assert.Throws<ArgumentException>(() => user.FirstName = name);
 		}
 	}
 }
