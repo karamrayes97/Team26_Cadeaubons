@@ -152,7 +152,7 @@ namespace Cadeaubons_Domain.Model
         }
 
         [Column("CreatedAt")]
-		public DateTime CreatedAt { get;} = DateTime.Now;
+		public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
 		[Column("Role")]
 		public Role Role { get; set; }

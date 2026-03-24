@@ -61,9 +61,28 @@ namespace Cadeaubons_Presentation.Windows
 
                 MessageHelper.ShowInfo($"Welcome {user.FirstName}!");
 
+                if (user.Role == Cadeaubons_Domain.Model.Role.Customer )
+                {                   
 
-                // open customer screen if user.Role == Role.Customer
-                // open admin screen if user.Role == Role.Admin
+                    CustomerWindow customerWindow = new CustomerWindow(_dm);
+                    
+                    customerWindow.Show();
+                    this.Close();
+                }
+
+
+                if (user.Role == Cadeaubons_Domain.Model.Role.Admin)
+                {
+
+
+                    AdminWindow adminWindow = new AdminWindow(_dm);
+
+                    adminWindow.Show();
+                    this.Close();
+                }
+
+                
+
             }
             catch (Exception ex)
             {

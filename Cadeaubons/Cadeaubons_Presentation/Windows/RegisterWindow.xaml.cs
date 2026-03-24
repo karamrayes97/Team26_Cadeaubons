@@ -87,18 +87,14 @@ namespace Cadeaubons_Presentation.Windows
                     firstName,
                     lastName,
                     phone,
-                    email,
+                    email.ToLower(),
                     DpDateOfBirth.SelectedDate.Value,
                     password
                 );
 
                 _dm.RegisterUser(request);
 
-                MessageBox.Show(
-                    "Registration successful! You can now log in.",
-                    "Success",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                MessageHelper.ShowInfo("Registration successful! You can now log in.");
 
                 // Go back to login screen
                 this.DialogResult = true;
@@ -110,7 +106,15 @@ namespace Cadeaubons_Presentation.Windows
             }
             catch (Exception ex)
             {
-                MessageHelper.ShowError(ex.Message);
+                // Toon de volledige foutmelding inclusief inner exceptions
+                string fullMessage = ex.Message;
+                Exception? inner = ex.InnerException;
+                while (inner != null)
+                {
+                    fullMessage += "\n\n→ " + inner.Message;
+                    inner = inner.InnerException;
+                }
+                MessageHelper.ShowError(fullMessage);
             }
         }
 

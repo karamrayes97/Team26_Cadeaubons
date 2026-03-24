@@ -5,7 +5,9 @@
              Startup="Application_Startup">
 	<Application.Resources>
 
-		<!-- ===== KLEUREN ===== -->
+        
+
+        <!-- ===== KLEUREN ===== -->
 		<Color x:Key="PrimaryGreen">#2E7D32</Color>
 		<Color x:Key="PrimaryGreenLight">#4CAF50</Color>
 		<Color x:Key="PrimaryGreenVeryLight">#C8E6C9</Color>
