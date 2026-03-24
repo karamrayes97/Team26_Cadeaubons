@@ -8,14 +8,14 @@ namespace Cadeaubons_Presentation
 {
     public class CadeaubonsApplication
     {
-        private readonly Domaincontroller _domainController;
-        public CadeaubonsApplication(Domaincontroller domainController)
+        private readonly DomainManager _domainManager;
+        public CadeaubonsApplication(DomainManager domainManager)
         {
-            _domainController = domainController;
+            _domainManager = domainManager;
         }
         public void Start()
         {
-            StartWindow startWindow = new StartWindow(_domainController);
+            StartWindow startWindow = new StartWindow(_domainManager);
             startWindow.Show();
         }
     }

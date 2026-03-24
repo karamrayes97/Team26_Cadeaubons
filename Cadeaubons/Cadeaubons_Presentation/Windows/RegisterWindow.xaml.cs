@@ -22,12 +22,12 @@ namespace Cadeaubons_Presentation.Windows
     /// </summary>
     public partial class RegisterWindow : Window
     {
-        private readonly Domaincontroller _domainController;
+        private readonly DomainManager _dm;
 
-        public RegisterWindow(Domaincontroller domainController)
+        public RegisterWindow(DomainManager dm)
         {
             InitializeComponent();
-            _domainController = domainController;
+            _dm= dm;
         }
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
@@ -83,14 +83,16 @@ namespace Cadeaubons_Presentation.Windows
 
             try
             {
-                _domainController.Register(
+                var request = new Cadeaubons_Domain.DTO.RegisterUserRequest(
                     firstName,
                     lastName,
+                    phone,
                     email,
                     DpDateOfBirth.SelectedDate.Value,
-                    phone,
                     password
                 );
+
+                _dm.RegisterUser(request);
 
                 MessageBox.Show(
                     "Registration successful! You can now log in.",

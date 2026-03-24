@@ -19,12 +19,12 @@ namespace Cadeaubons_Presentation.Windows
     /// </summary>
     public partial class StartWindow : Window
     {
-        private readonly Domaincontroller _domainController;
+        private readonly DomainManager _dm;
 
-        public StartWindow(Domaincontroller domainController)
+        public StartWindow(DomainManager dm)
         {
             InitializeComponent();
-            _domainController = domainController;
+            _dm = dm;
         }
 
         // LOGIN-BUTTON:
@@ -51,7 +51,7 @@ namespace Cadeaubons_Presentation.Windows
             try
             {
                 // call naar Domaincontroller:
-                var user = _domainController.login(email, password);
+                var user = _dm.Login(email, password);
 
                 if (user == null)
                 {
@@ -74,7 +74,7 @@ namespace Cadeaubons_Presentation.Windows
         //REGISTER-BUTTON
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow registerWindow = new RegisterWindow(_domainController);
+            RegisterWindow registerWindow = new RegisterWindow(_dm);
             registerWindow.Owner = this;
             registerWindow.ShowDialog();
         }
