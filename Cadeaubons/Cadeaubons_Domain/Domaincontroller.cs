@@ -26,5 +26,9 @@ namespace Cadeaubons_Domain
             return null;
         }
 
+        public void Register(string firstName, string lastName, string email,
+    DateTime dateOfBirth, string phoneNumber, string password)
+        { }
+
     }
 }

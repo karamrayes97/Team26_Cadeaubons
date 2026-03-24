@@ -1,0 +1,132 @@
+﻿<Window x:Class="Cadeaubons_Presentation.Windows.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
+        mc:Ignorable="d"
+        Title="Register - Gift Voucher Platform"
+        Height="700"
+        Width="500"
+        MinHeight="500"
+        MinWidth="300"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="White">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="350">
+                    <TextBlock Text="🎁"
+                               FontSize="36"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Create Account"
+                               Style="{StaticResource WindowTitle}"
+                               Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Fill in your details to register."
+                               FontSize="14"
+                               Foreground="Gray"
+                               TextAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <!-- First Name -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="👤" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="First Name *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <TextBox x:Name="TxtFirstName"
+                             Style="{StaticResource RoundedTextBox}"
+                             Margin="0,0,0,10"/>
+
+                    <!-- Last Name -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="👤" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Last Name *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <TextBox x:Name="TxtLastName"
+                             Style="{StaticResource RoundedTextBox}"
+                             Margin="0,0,0,10"/>
+
+                    <!-- Email -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="✉" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Email *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <TextBox x:Name="TxtEmail"
+                             Style="{StaticResource RoundedTextBox}"
+                             Margin="0,0,0,10"/>
+
+                    <!-- Date of Birth -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="📅" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Date of Birth *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <DatePicker x:Name="DpDateOfBirth"
+                                Height="38"
+                                Margin="0,0,0,10"
+                                Padding="4"/>
+
+                    <!-- Phone Number -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="📞" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Phone Number (optional)"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <TextBox x:Name="TxtPhoneNumber"
+                             Style="{StaticResource RoundedTextBox}"
+                             Margin="0,0,0,10"/>
+
+                    <!-- Password -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="🔒" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Password *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <PasswordBox x:Name="PwdPassword"
+                                 Style="{StaticResource RoundedPasswordBox}"
+                                 Margin="0,0,0,10"/>
+
+                    <!-- Confirm Password -->
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                        <TextBlock Text="🔒" FontSize="14" Margin="0,0,6,0"
+                                   VerticalAlignment="Center"/>
+                        <TextBlock Text="Confirm Password *"
+                                   Style="{StaticResource FieldLabel}"/>
+                    </StackPanel>
+                    <PasswordBox x:Name="PwdConfirmPassword"
+                                 Style="{StaticResource RoundedPasswordBox}"
+                                 Margin="0,0,0,20"/>
+
+                    <!-- Register Button -->
+                    <Button x:Name="BtnRegister"
+                            Content="Register"
+                            Style="{StaticResource PrimaryButton}"
+                            Margin="0,0,0,12"
+                            Click="BtnRegister_Click"/>
+
+                    <!-- Back Button -->
+                    <Button x:Name="BtnBack"
+                            Content="Back to Login"
+                            Style="{StaticResource SecondaryButton}"
+                            Click="BtnBack_Click"/>
+                </StackPanel>
+           
+        </ScrollViewer>
+    </Grid>
+</Window>

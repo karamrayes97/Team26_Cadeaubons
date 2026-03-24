@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Cadeaubons_Presentation.Helpers;
 
 namespace Cadeaubons_Presentation.Windows
 {
@@ -30,35 +31,35 @@ namespace Cadeaubons_Presentation.Windows
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            TxtMessage.Text = string.Empty;
+            
 
             string email = TxtEmail.Text.Trim();
             string password = PwdPassword.Password;
 
             if (string.IsNullOrWhiteSpace(email))
             {
-                ShowWarning("Please enter your email.");
+                MessageHelper.ShowWarning("Please enter your email.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                ShowWarning("Please enter your password.");
+                MessageHelper.ShowWarning("Please enter your password.");
                 return;
             }
 
             try
             {
-                // call naar Domancontroller:
+                // call naar Domaincontroller:
                 var user = _domainController.login(email, password);
 
                 if (user == null)
                 {
-                    ShowError("Invalid email or password.");
+                    MessageHelper.ShowError("Invalid email or password.");
                     return;
                 }
 
-                ShowInfo($"Welcome {user.FirstName}!");
+                MessageHelper.ShowInfo($"Welcome {user.FirstName}!");
 
 
                 // open customer screen if user.Role == Role.Customer
@@ -66,46 +67,20 @@ namespace Cadeaubons_Presentation.Windows
             }
             catch (Exception ex)
             {
-                ShowError(ex.Message);
+                MessageHelper.ShowError(ex.Message);
             }
         }
 
+        //REGISTER-BUTTON
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Register screen will be implemented later", "Register", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            // Create register window later
+            RegisterWindow registerWindow = new RegisterWindow(_domainController);
+            registerWindow.Owner = this;
+            registerWindow.ShowDialog();
         }
 
 
-        //Error message-methods, can be made into one method later, and put in a different, central class
-
-        private void ShowError(string message)
-        {
-            MessageBox.Show(
-                message,
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-        }
-
-        private void ShowWarning(string message)
-        {
-            MessageBox.Show(
-                message,
-                "Warning",
-                MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-        }
-
-        private void ShowInfo(string message)
-        {
-            MessageBox.Show(
-                message,
-                "Information",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
+ 
 
 
 
