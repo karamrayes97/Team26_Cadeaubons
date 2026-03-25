@@ -100,21 +100,17 @@ namespace Cadeaubons_Presentation.Windows
                 this.DialogResult = true;
                 this.Close();
             }
+            catch (InvalidOperationException ex)
+            {
+                MessageHelper.ShowError(ex.Message);
+            }
             catch (ArgumentException ex)
             {
-                MessageHelper.ShowWarning(ex.Message);
+                MessageHelper.ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                // Toon de volledige foutmelding inclusief inner exceptions
-                string fullMessage = ex.Message;
-                Exception? inner = ex.InnerException;
-                while (inner != null)
-                {
-                    fullMessage += "\n\n→ " + inner.Message;
-                    inner = inner.InnerException;
-                }
-                MessageHelper.ShowError(fullMessage);
+                MessageHelper.ShowError(ex.Message);
             }
         }
 

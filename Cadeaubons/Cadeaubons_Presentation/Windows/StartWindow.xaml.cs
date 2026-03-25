@@ -62,10 +62,8 @@ namespace Cadeaubons_Presentation.Windows
                 MessageHelper.ShowInfo($"Welcome {user.FirstName}!");
 
                 if (user.Role == Cadeaubons_Domain.Model.Role.Customer )
-                {                   
-
-                    CustomerWindow customerWindow = new CustomerWindow(_dm);
-                    
+                {   
+                    CustomerWindow customerWindow = new CustomerWindow(_dm);                    
                     customerWindow.Show();
                     this.Close();
                 }
@@ -73,16 +71,21 @@ namespace Cadeaubons_Presentation.Windows
 
                 if (user.Role == Cadeaubons_Domain.Model.Role.Admin)
                 {
-
-
                     AdminWindow adminWindow = new AdminWindow(_dm);
-
                     adminWindow.Show();
                     this.Close();
                 }
 
                 
 
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageHelper.ShowError(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageHelper.ShowError(ex.Message);
             }
             catch (Exception ex)
             {
