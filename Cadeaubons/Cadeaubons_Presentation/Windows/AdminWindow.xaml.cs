@@ -27,5 +27,12 @@ namespace Cadeaubons_Presentation.Windows
             InitializeComponent();
             _dm = dm;
         }
-    }
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			AddShopsWindow adminWindow = new AddShopsWindow(_dm);
+			adminWindow.Show();
+			this.Close();
+		}
+	}
 }

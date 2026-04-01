@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cadeaubons_Domain.DTO;
+﻿using Cadeaubons_Domain.DTO;
 using Cadeaubons_Domain.Model;
 using Cadeaubons_Domain.Repo;
 using Cadeaubons_Domain.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Cadeaubons_Domain
 {
@@ -14,9 +15,16 @@ namespace Cadeaubons_Domain
     {
         private readonly UserService _userService;
 
-        public DomainManager(UserService userService)
+		private readonly CityService _cityService;
+
+		private readonly StoreService _storeService;
+
+
+		public DomainManager(UserService userService , CityService cityService,StoreService storeService)
         {
             _userService = userService;
+            _cityService = cityService;
+            _storeService = storeService;
         }
 
         public List<UserDTO> GetUsers()
@@ -38,5 +46,16 @@ namespace Cadeaubons_Domain
         {
             return _userService.Login(email, password);
         }
-    }
+
+       public List<CityDTO> GetCities()
+        {
+            return _cityService.GetAll();
+        }
+
+        public void AddStore(StoreDTO city)
+        {
+            _storeService.AddStore(city);
+        }
+
+	}
 }
