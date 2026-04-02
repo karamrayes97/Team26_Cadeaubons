@@ -66,9 +66,27 @@ namespace Cadeaubons_Domain.Model
 		[Column("PurchaseDate")]
 		public DateTime PurchaseDate { get; } = DateTime.Now;
 
+        [ForeignKey("Buyer")]
+        [Column("BuyerId")]
+        public int BuyerId { get; private set; }
+
+        private User _buyer;
+        public User Buyer
+        {
+            get => _buyer;
+            set
+            {
+                if (value == null)
+                    throw new ArgumentException("Buyer is required.", nameof(Buyer));
+
+                _buyer = value;
+                BuyerId = value.Id;
+            }
+        }
+
         [ForeignKey("User")]
 		[Column("UserId")]
-		public int UserId { get; private set; }
+		public int UserId { get; set; }
 
 		private User _user;
 		public User User
