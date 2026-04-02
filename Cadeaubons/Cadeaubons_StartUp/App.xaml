@@ -3,7 +3,175 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Cadeaubons.StartUp"
              Startup="Application_Startup">
-    <Application.Resources>
-         
-    </Application.Resources>
+	<Application.Resources>
+
+        
+
+        <!-- ===== KLEUREN ===== -->
+		<Color x:Key="PrimaryGreen">#2E7D32</Color>
+		<Color x:Key="PrimaryGreenLight">#4CAF50</Color>
+		<Color x:Key="PrimaryGreenVeryLight">#C8E6C9</Color>
+		<Color x:Key="GlowGreen">#8BC34A</Color>
+
+		<SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryGreen}"/>
+		<SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryGreenLight}"/>
+		<SolidColorBrush x:Key="PrimaryVeryLightBrush" Color="{StaticResource PrimaryGreenVeryLight}"/>
+		<SolidColorBrush x:Key="GlowBrush" Color="{StaticResource GlowGreen}"/>
+
+		<!-- ===== AFGERONDE TEXTBOX MET GLOW ===== -->
+		<Style x:Key="RoundedTextBox" TargetType="TextBox">
+			<Setter Property="Height" Value="38"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Foreground" Value="#333333"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="TextBox">
+						<Border x:Name="border"
+								Background="White"
+								BorderBrush="#CCCCCC"
+								BorderThickness="1.5"
+								CornerRadius="8"
+								Padding="10,0">
+							<Border.Effect>
+								<DropShadowEffect ShadowDepth="0" BlurRadius="0"
+												  Color="{StaticResource GlowGreen}" Opacity="0"/>
+							</Border.Effect>
+							<ScrollViewer x:Name="PART_ContentHost"
+										  VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsFocused" Value="True">
+								<Setter TargetName="border" Property="BorderBrush"
+										Value="{StaticResource PrimaryLightBrush}"/>
+								<Setter TargetName="border" Property="Effect">
+									<Setter.Value>
+										<DropShadowEffect ShadowDepth="0" BlurRadius="12"
+														  Color="{StaticResource GlowGreen}" Opacity="0.5"/>
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- ===== AFGERONDE PASSWORDBOX MET GLOW ===== -->
+		<Style x:Key="RoundedPasswordBox" TargetType="PasswordBox">
+			<Setter Property="Height" Value="38"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="Foreground" Value="#333333"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="PasswordBox">
+						<Border x:Name="border"
+								Background="White"
+								BorderBrush="#CCCCCC"
+								BorderThickness="1.5"
+								CornerRadius="8"
+								Padding="10,0">
+							<Border.Effect>
+								<DropShadowEffect ShadowDepth="0" BlurRadius="0"
+												  Color="{StaticResource GlowGreen}" Opacity="0"/>
+							</Border.Effect>
+							<ScrollViewer x:Name="PART_ContentHost"
+										  VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsFocused" Value="True">
+								<Setter TargetName="border" Property="BorderBrush"
+										Value="{StaticResource PrimaryLightBrush}"/>
+								<Setter TargetName="border" Property="Effect">
+									<Setter.Value>
+										<DropShadowEffect ShadowDepth="0" BlurRadius="12"
+														  Color="{StaticResource GlowGreen}" Opacity="0.5"/>
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- ===== PRIMAIRE KNOP (groen) ===== -->
+		<Style x:Key="PrimaryButton" TargetType="Button">
+			<Setter Property="Height" Value="42"/>
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="White"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border x:Name="border"
+                                Background="{StaticResource PrimaryBrush}"
+                                CornerRadius="8"
+                                Padding="15,8">
+							<ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource PrimaryLightBrush}"/>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource PrimaryBrush}"/>
+								<Setter TargetName="border" Property="Opacity" Value="0.85"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- ===== SECUNDAIRE KNOP (transparant met rand) ===== -->
+		<Style x:Key="SecondaryButton" TargetType="Button">
+			<Setter Property="Height" Value="42"/>
+			<Setter Property="FontSize" Value="15"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+			<Setter Property="Cursor" Value="Hand"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border x:Name="border"
+                                Background="Transparent"
+                                BorderBrush="{StaticResource PrimaryVeryLightBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="8"
+                                Padding="15,8">
+							<ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsMouseOver" Value="True">
+								<Setter TargetName="border" Property="Background"
+                                        Value="{StaticResource PrimaryVeryLightBrush}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!-- ===== LABEL STYLE MET ICOON ===== -->
+		<Style x:Key="FieldLabel" TargetType="TextBlock">
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontSize" Value="13"/>
+			<Setter Property="Foreground" Value="#444444"/>
+			<Setter Property="Margin" Value="0,0,0,5"/>
+		</Style>
+
+		<!-- ===== TITEL STYLE ===== -->
+		<Style x:Key="WindowTitle" TargetType="TextBlock">
+			<Setter Property="FontSize" Value="28"/>
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+		</Style>
+
+	</Application.Resources>
 </Application>

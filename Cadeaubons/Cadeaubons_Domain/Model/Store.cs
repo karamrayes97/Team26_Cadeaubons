@@ -79,7 +79,7 @@ namespace Cadeaubons_Domain.Model
 
         [ForeignKey("City")]
 		[Column("CityId")]
-        public int CityId { get; private set; }
+        public int CityId { get; set; }
 
         private City _city;
 		public City City 
