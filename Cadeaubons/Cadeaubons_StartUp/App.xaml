@@ -5,7 +5,39 @@
              Startup="Application_Startup">
 	<Application.Resources>
 
-        
+        <!-- ===== LOGOUT / DANGER BUTTON ===== -->
+        <Style x:Key="DangerButton" TargetType="Button">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#E74C3C"/>
+            <!-- Rood -->
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="8"
+                        Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#C0392B"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
         <!-- ===== KLEUREN ===== -->
 		<Color x:Key="PrimaryGreen">#2E7D32</Color>

@@ -7,6 +7,51 @@
         mc:Ignorable="d"
         Title="CustomerWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="10">
+
+            <Button Content="Log out"
+            Style="{StaticResource DangerButton}"
+            DockPanel.Dock="Right"
+            Click="BtnLogout_Click"/>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+
+                <TextBlock Text="🎁"
+                   FontSize="28"
+                   Margin="0,0,10,0"/>
+
+                <TextBlock x:Name="TxtWelcome"
+                   Style="{StaticResource WindowTitle}"
+                   VerticalAlignment="Center"/>
+
+            </StackPanel>
+
+        </DockPanel>
+
+        <StackPanel Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Width="300">
+
+            <Button Content="View All Themes"
+                Style="{StaticResource PrimaryButton}"
+                    Margin="0,0,0,10"
+                Click="BtnViewThemes_Click"/>
+
+            <Button Content="My Orders"
+                Style="{StaticResource PrimaryButton}"
+                    Margin="0,0,0,10"/>
+
+            <Button Content="Profile"
+                Style="{StaticResource PrimaryButton}"
+                    Margin="0,0,0,10"/>
+
+        </StackPanel>
+
     </Grid>
 </Window>

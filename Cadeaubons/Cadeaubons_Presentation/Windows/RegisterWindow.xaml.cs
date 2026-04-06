@@ -27,7 +27,7 @@ namespace Cadeaubons_Presentation.Windows
         public RegisterWindow(DomainManager dm)
         {
             InitializeComponent();
-            _dm= dm;
+            _dm = dm;
         }
 
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
@@ -116,7 +116,8 @@ namespace Cadeaubons_Presentation.Windows
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            StartWindow window = new StartWindow(_dm);
+            window.Show();
             this.Close();
         }
 

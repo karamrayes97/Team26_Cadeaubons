@@ -1,5 +1,4 @@
-﻿using Cadeaubons_Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Cadeaubons_Domain;
+using Cadeaubons_Domain.DTO;
 
 namespace Cadeaubons_Presentation.Windows
 {
@@ -20,11 +21,30 @@ namespace Cadeaubons_Presentation.Windows
     /// </summary>
     public partial class CustomerWindow : Window
     {
+
         private readonly DomainManager _dm;
-        public CustomerWindow(DomainManager dm)
+        private UserDTO _currentUser;
+        public CustomerWindow(DomainManager dm, UserDTO currentUser)
         {
             InitializeComponent();
             _dm = dm;
+            _currentUser = currentUser;
+            TxtWelcome.Text = $"Welcome {_currentUser.FirstName} !";
+        }
+
+        private void BtnViewThemes_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeListWindow window = new ThemeListWindow(_dm, _currentUser);
+            window.Show();
+            this.Close();
+        }
+
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            _currentUser = null;
+            StartWindow window = new StartWindow(_dm); 
+            window.Show();
+            this.Close();
         }
     }
 }

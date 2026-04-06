@@ -26,7 +26,7 @@ namespace Cadeaubons_Domain.Services
 			_repository = repository;
 		}
 
-		public List<UserDTO> GetUsers()
+		public List<UserDTO> GetAll()
 		{
 			return _repository
                 .Users
@@ -40,7 +40,7 @@ namespace Cadeaubons_Domain.Services
             return user == null ? null : new UserDTO(user);
         }
 
-        public UserDTO RegisterUser(RegisterUserRequest request)
+        public UserDTO Register(RegisterUserRequest request)
         {
             if (GetUserModelByEmail(request.Email) != null)
                 throw new InvalidOperationException("A user with this email already exists.");

@@ -18,18 +18,20 @@ namespace Cadeaubons_Domain
 		private readonly CityService _cityService;
 
 		private readonly StoreService _storeService;
+        private readonly ThemeService _themeService;
 
 
-		public DomainManager(UserService userService , CityService cityService,StoreService storeService)
+        public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService)
         {
             _userService = userService;
             _cityService = cityService;
             _storeService = storeService;
+            _themeService = themeService;
         }
 
         public List<UserDTO> GetUsers()
         {
-            return _userService.GetUsers();
+            return _userService.GetAll();
         }
 
         public UserDTO? GetByEmail(string email)
@@ -39,7 +41,7 @@ namespace Cadeaubons_Domain
 
         public UserDTO RegisterUser(RegisterUserRequest request)
         {
-            return _userService.RegisterUser(request);
+            return _userService.Register(request);
         }
 
         public UserDTO Login(string email, string password)
@@ -57,5 +59,10 @@ namespace Cadeaubons_Domain
             _storeService.AddStore(city);
         }
 
-	}
+        public List<ThemeDTO> GetAllThemes()
+        {
+            return _themeService.GetAll();
+        }
+
+    }
 }

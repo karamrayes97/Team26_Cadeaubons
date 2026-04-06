@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Cadeaubons_Presentation.Helpers;
+using Cadeaubons_Domain.DTO;
 
 namespace Cadeaubons_Presentation.Windows
 {
@@ -59,11 +60,9 @@ namespace Cadeaubons_Presentation.Windows
                     return;
                 }
 
-                MessageHelper.ShowInfo($"Welcome {user.FirstName}!");
-
                 if (user.Role == Cadeaubons_Domain.Model.Role.Customer )
                 {   
-                    CustomerWindow customerWindow = new CustomerWindow(_dm);                    
+                    CustomerWindow customerWindow = new CustomerWindow(_dm, user);                    
                     customerWindow.Show();
                     this.Close();
                 }
@@ -75,8 +74,6 @@ namespace Cadeaubons_Presentation.Windows
                     adminWindow.Show();
                     this.Close();
                 }
-
-                
 
             }
             catch (InvalidOperationException ex)
@@ -93,18 +90,11 @@ namespace Cadeaubons_Presentation.Windows
             }
         }
 
-        //REGISTER-BUTTON
         private void BtnRegister_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow registerWindow = new RegisterWindow(_dm);
-            registerWindow.Owner = this;
-            registerWindow.ShowDialog();
+            RegisterWindow window = new RegisterWindow(_dm);
+            window.Show();
+            this.Close();
         }
-
-
- 
-
-
-
     }
 }

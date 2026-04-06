@@ -1,0 +1,80 @@
+﻿<Window x:Class="Cadeaubons_Presentation.Windows.ThemeDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
+        mc:Ignorable="d"
+        Title="ThemeDetailWindow" Height="450" Width="800">
+    <Grid>
+        <!-- Grid: Header + Content -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="10">
+            <!-- Back knop -->
+            <Button Content="← Back"
+                    Style="{StaticResource SecondaryButton}"
+                    DockPanel.Dock="Right"
+                    Width="100"
+                    Click="BtnBack_Click"/>
+
+            <!-- Logo + Titel -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="🎨" FontSize="28" Margin="0,0,10,0"/>
+                <TextBlock x:Name="ThemeTitle" Text="Theme Detail" Style="{StaticResource WindowTitle}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center" Width="350" Margin="0,20,0,20">
+
+                <!-- Icon -->
+                <Border Background="#F5F5F5"
+                        CornerRadius="50"
+                        Padding="20"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,15">
+                    <Image x:Name="ThemeIcon" Width="60" Height="60"/>
+                </Border>
+
+                <!-- Title -->
+                <TextBlock x:Name="ThemeName"
+                           Style="{StaticResource WindowTitle}"
+                           TextAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                <!-- Description -->
+                <TextBlock x:Name="ThemeDescription"
+                           FontSize="14"
+                           Foreground="Gray"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,25"/>
+
+                <!-- Color Section -->
+                <TextBlock Text="Primary Color"
+                           Style="{StaticResource FieldLabel}"
+                           Margin="0,0,0,5"/>
+
+                <Border x:Name="ColorPreview"
+                        Height="50"
+                        CornerRadius="12"
+                        Margin="0,0,0,20"/>
+
+                <!-- Color Code -->
+                <TextBlock x:Name="ColorCodeText"
+                           FontSize="12"
+                           Foreground="Gray"
+                           TextAlignment="Center"
+                           Margin="0,0,0,30"/>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Window>
