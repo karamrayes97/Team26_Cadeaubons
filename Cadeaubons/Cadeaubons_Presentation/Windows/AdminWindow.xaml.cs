@@ -34,5 +34,20 @@ namespace Cadeaubons_Presentation.Windows
 			adminWindow.Show();
 			this.Close();
 		}
-	}
+
+        private void BtnManageThemes_Click(object sender, RoutedEventArgs e)
+        {
+            ManageThemesWindow window = new ManageThemesWindow(_dm);
+            window.Show();
+            this.Close();
+        }
+
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            StartWindow window = new StartWindow(_dm);
+            window.Show();
+            this.Close();
+        }
+
+    }
 }

@@ -39,7 +39,7 @@
                         Padding="20"
                         HorizontalAlignment="Center"
                         Margin="0,0,0,15">
-                    <Image x:Name="ThemeIcon" Width="60" Height="60"/>
+                    <TextBlock x:Name="ThemeIcon" FontSize="48" HorizontalAlignment="Center"/>
                 </Border>
 
                 <!-- Title -->
