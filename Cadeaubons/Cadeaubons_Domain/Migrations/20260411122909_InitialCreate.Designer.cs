@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadeaubons_Domain.Migrations
 {
     [DbContext(typeof(Repository))]
-    [Migration("20260402181522_Initial")]
-    partial class Initial
+    [Migration("20260411122909_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,10 +41,14 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("PostalCode");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostalCode")
+                        .IsUnique();
 
                     b.ToTable("Cities");
                 });
@@ -103,7 +107,8 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("StripePaymentId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("StripePaymentId");
 
                     b.Property<int>("VoucherId")
@@ -111,6 +116,9 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnName("VoucherId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StripePaymentId")
+                        .IsUnique();
 
                     b.HasIndex("VoucherId");
 
@@ -173,7 +181,8 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("Name");
 
                     b.Property<string>("PrimaryColor")
@@ -182,6 +191,9 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnName("PrimaryColor");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Themes");
                 });
@@ -205,7 +217,8 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Email");
 
                     b.Property<string>("FirstName")
@@ -243,6 +256,9 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -265,8 +281,13 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("Number");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PurchaseDate");
 
                     b.Property<int>("ThemeId")
                         .HasColumnType("int")
@@ -279,6 +300,9 @@ namespace Cadeaubons_Domain.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
 
                     b.HasIndex("ThemeId");
 
@@ -345,7 +369,7 @@ namespace Cadeaubons_Domain.Migrations
                     b.HasOne("Cadeaubons_Domain.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Buyer");

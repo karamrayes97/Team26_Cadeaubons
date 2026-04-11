@@ -30,7 +30,7 @@ namespace Cadeaubons_Domain.Model
         }
 
         private string _postalCode = string.Empty;
-        [Column("PostalCode")]
+        [Column("PostalCode"), MaxLength(20)]
         public string PostalCode
         {
             get => _postalCode;

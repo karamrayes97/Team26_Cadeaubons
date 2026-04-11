@@ -98,7 +98,7 @@ namespace Cadeaubons_Domain.Model
         }
 
         private string _email = string.Empty;
-        [Column("Email")]
+        [Column("Email") , MaxLength(255)]
 		public string Email 
         { 
             get => _email; 

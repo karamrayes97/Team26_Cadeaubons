@@ -32,7 +32,7 @@ namespace Cadeaubons_Domain.Model
 
         private string _number = string.Empty;
 
-        [Column("Number")]
+        [Column("Number"), MaxLength(50)]
         public string Number
         {
             get => _number;
@@ -64,7 +64,7 @@ namespace Cadeaubons_Domain.Model
 		}
 
 		[Column("PurchaseDate")]
-		public DateTime PurchaseDate { get; } = DateTime.Now;
+		public DateTime PurchaseDate { get; set; } = DateTime.Now;
 
         [ForeignKey("Buyer")]
         [Column("BuyerId")]

@@ -27,7 +27,7 @@ namespace Cadeaubons_Domain.Model
         }
 
         private string _name = string.Empty;
-        [Column("Name")]
+        [Column("Name"), MaxLength(100)]
         public string Name
         {
             get => _name;

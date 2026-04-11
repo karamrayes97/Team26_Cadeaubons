@@ -38,10 +38,14 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("PostalCode");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostalCode")
+                        .IsUnique();
 
                     b.ToTable("Cities");
                 });
@@ -58,10 +62,6 @@ namespace Cadeaubons_Domain.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("Amount");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Date");
 
                     b.Property<string>("Reason")
                         .IsRequired()
@@ -98,18 +98,14 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("Amount");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("Date");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
                         .HasColumnName("Status");
 
                     b.Property<string>("StripePaymentId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("StripePaymentId");
 
                     b.Property<int>("VoucherId")
@@ -117,6 +113,9 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnName("VoucherId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("StripePaymentId")
+                        .IsUnique();
 
                     b.HasIndex("VoucherId");
 
@@ -179,7 +178,8 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("Name");
 
                     b.Property<string>("PrimaryColor")
@@ -188,6 +188,9 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnName("PrimaryColor");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Themes");
                 });
@@ -211,7 +214,8 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Email");
 
                     b.Property<string>("FirstName")
@@ -249,6 +253,9 @@ namespace Cadeaubons_Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
@@ -261,13 +268,18 @@ namespace Cadeaubons_Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BuyerId")
+                        .HasColumnType("int")
+                        .HasColumnName("BuyerId");
+
                     b.Property<decimal>("InitialAmount")
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("InitialAmount");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("Number");
 
                     b.Property<DateTime>("PurchaseDate")
@@ -283,6 +295,11 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("Number")
+                        .IsUnique();
 
                     b.HasIndex("ThemeId");
 
@@ -334,6 +351,12 @@ namespace Cadeaubons_Domain.Migrations
 
             modelBuilder.Entity("Cadeaubons_Domain.Model.Voucher", b =>
                 {
+                    b.HasOne("Cadeaubons_Domain.Model.User", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Cadeaubons_Domain.Model.Theme", "Theme")
                         .WithMany()
                         .HasForeignKey("ThemeId")
@@ -343,8 +366,10 @@ namespace Cadeaubons_Domain.Migrations
                     b.HasOne("Cadeaubons_Domain.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Buyer");
 
                     b.Navigation("Theme");
 

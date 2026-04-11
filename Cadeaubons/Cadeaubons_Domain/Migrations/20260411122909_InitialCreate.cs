@@ -17,7 +17,7 @@ namespace Cadeaubons_Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -31,7 +31,7 @@ namespace Cadeaubons_Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IconPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PrimaryColor = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -51,7 +51,7 @@ namespace Cadeaubons_Domain.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     PasswordSalt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -91,9 +91,10 @@ namespace Cadeaubons_Domain.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     InitialAmount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BuyerId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     ThemeId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -107,11 +108,17 @@ namespace Cadeaubons_Domain.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Vouchers_Users_BuyerId",
+                        column: x => x.BuyerId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Vouchers_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -122,7 +129,6 @@ namespace Cadeaubons_Domain.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     VoucherId = table.Column<int>(type: "int", nullable: false),
                     StoreId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -150,9 +156,8 @@ namespace Cadeaubons_Domain.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StripePaymentId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    StripePaymentId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     VoucherId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -167,6 +172,12 @@ namespace Cadeaubons_Domain.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_PostalCode",
+                table: "Cities",
+                column: "PostalCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Consumptions_StoreId",
                 table: "Consumptions",
                 column: "StoreId");
@@ -177,6 +188,12 @@ namespace Cadeaubons_Domain.Migrations
                 column: "VoucherId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_StripePaymentId",
+                table: "Payments",
+                column: "StripePaymentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_VoucherId",
                 table: "Payments",
                 column: "VoucherId");
@@ -185,6 +202,29 @@ namespace Cadeaubons_Domain.Migrations
                 name: "IX_Stores_CityId",
                 table: "Stores",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Themes_Name",
+                table: "Themes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vouchers_BuyerId",
+                table: "Vouchers",
+                column: "BuyerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vouchers_Number",
+                table: "Vouchers",
+                column: "Number",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vouchers_ThemeId",

@@ -47,7 +47,7 @@ namespace Cadeaubons_Domain.Model
 		public PaymentStatus Status { get; set; }
 
         private string _stripePaymentId = string.Empty;
-        [Column("StripePaymentId")]
+        [Column("StripePaymentId"), MaxLength(100)]
 		public string StripePaymentId
         {
             get => _stripePaymentId;
