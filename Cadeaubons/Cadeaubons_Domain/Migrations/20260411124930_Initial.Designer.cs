@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadeaubons_Domain.Migrations
 {
     [DbContext(typeof(Repository))]
-    [Migration("20260411122909_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260411124930_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
