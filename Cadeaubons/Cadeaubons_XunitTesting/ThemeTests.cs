@@ -63,5 +63,124 @@ namespace Cadeaubons_XunitTesting
                 Assert.Null(result);
             }
         }
+
+        [Fact]
+        public void Add_ShouldSaveThemeToDatabase()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            var result = service.Add("Christmas", "Xmas theme", "🎄", "#FF0000");
+
+            Assert.Equal("Christmas", result.Name);
+            Assert.Equal("🎄", result.IconPath);
+            Assert.Equal("#FF0000", result.PrimaryColor);
+            Assert.Equal(3, db.Themes.Count());
+        }
+
+        [Fact]
+        public void Add_ShouldThrow_WhenNameAlreadyExists()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            Assert.Throws<InvalidOperationException>(() =>
+                service.Add("Nature", "Duplicate", "🌿", "#00FF00"));
+        }
+
+        [Fact]
+        public void Add_ShouldThrow_WhenNameAlreadyExistsCaseInsensitive()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            Assert.Throws<InvalidOperationException>(() =>
+                service.Add("NATURE", "Duplicate", "🌿", "#00FF00"));
+        }
+
+        [Fact]
+        public void Add_ShouldThrow_WhenNameInvalid()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            Assert.Throws<ArgumentException>(() =>
+                service.Add("", "Description", "🎄", "#FF0000"));
+        }
+
+        // ===== Update tests =====
+
+        [Fact]
+        public void Update_ShouldChangeThemeProperties()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            var result = service.Update(1, "Winter", "New desc", "❄", "#0000FF");
+
+            Assert.Equal("Winter", result.Name);
+            Assert.Equal("New desc", result.Description);
+            Assert.Equal("❄", result.IconPath);
+            Assert.Equal("#0000FF", result.PrimaryColor);
+        }
+
+        [Fact]
+        public void Update_ShouldThrow_WhenThemeNotFound()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            Assert.Throws<InvalidOperationException>(() =>
+                service.Update(999, "Name", "Desc", "🎄", "#FF0000"));
+        }
+
+        [Fact]
+        public void Update_ShouldThrow_WhenAnotherThemeHasSameName()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            // Try to update theme 2 (Technology) with the name of theme 1 (Nature)
+            Assert.Throws<InvalidOperationException>(() =>
+                service.Update(2, "Nature", "Desc", "🎁", "#0000FF"));
+        }
+
+        [Fact]
+        public void Update_ShouldAllowSameName_WhenSameTheme()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            // Update theme 1 with its own name but different description
+            var result = service.Update(1, "Nature", "Updated desc", "🌲", "#00FF00");
+
+            Assert.Equal("Nature", result.Name);
+            Assert.Equal("Updated desc", result.Description);
+        }
+
+        // ===== Delete tests =====
+
+        [Fact]
+        public void Delete_ShouldRemoveThemeFromDatabase()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            service.Delete(1);
+
+            Assert.Single(db.Themes);
+            Assert.DoesNotContain(db.Themes, t => t.Id == 1);
+        }
+
+        [Fact]
+        public void Delete_ShouldThrow_WhenThemeNotFound()
+        {
+            var db = GetDbContext();
+            var service = new ThemeService(db);
+
+            Assert.Throws<InvalidOperationException>(() => service.Delete(999));
+        }
+
+
     }
 }
