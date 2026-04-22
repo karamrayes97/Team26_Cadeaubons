@@ -64,5 +64,20 @@ namespace Cadeaubons_Domain
             return _themeService.GetAll();
         }
 
+        public ThemeDTO AddTheme(string name, string description, string iconPath, string primaryColor)
+        {
+            return _themeService.Add(name, description, iconPath, primaryColor);
+        }
+
+        public ThemeDTO UpdateTheme(int id, string name, string description, string iconPath, string primaryColor)
+        {
+            return _themeService.Update(id, name, description, iconPath, primaryColor);
+        }
+
+        public void DeleteTheme(int id)
+        {
+            _themeService.Delete(id);
+        }
+
     }
 }

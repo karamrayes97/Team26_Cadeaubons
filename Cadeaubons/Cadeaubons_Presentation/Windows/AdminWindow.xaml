@@ -5,9 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="Admin Panel" Height="450" Width="800"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button Content="Add Store Window" HorizontalAlignment="Left" Margin="159,89,0,0" VerticalAlignment="Top" Width="142" Click="Button_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <DockPanel Grid.Row="0" Margin="10">
+            <Button Content="Log out"
+                    Style="{StaticResource DangerButton}"
+                    DockPanel.Dock="Right"
+                    Click="BtnLogout_Click"/>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="🎁" FontSize="28" Margin="0,0,10,0"/>
+                <TextBlock Text="Admin Panel"
+                           Style="{StaticResource WindowTitle}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="300">
+
+            <Button Content="Manage Themes"
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="0,0,0,10"
+                    Click="BtnManageThemes_Click"/>
+
+            <Button Content="Add Store"
+                    Style="{StaticResource PrimaryButton}"
+                    Margin="0,0,0,10"
+                    Click="Button_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

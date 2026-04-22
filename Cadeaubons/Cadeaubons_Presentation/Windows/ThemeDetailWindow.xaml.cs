@@ -42,9 +42,8 @@ namespace Cadeaubons_Presentation.Windows
             ThemeName.Text = _theme.Name;
             ThemeDescription.Text = _theme.Description;
 
-            ThemeIcon.Source = new BitmapImage(
-                new Uri(_theme.IconPath, UriKind.RelativeOrAbsolute)
-            );
+            ThemeIcon.Text = _theme.IconPath;
+            
 
             var color = (Color)ColorConverter.ConvertFromString(_theme.PrimaryColor);
 
