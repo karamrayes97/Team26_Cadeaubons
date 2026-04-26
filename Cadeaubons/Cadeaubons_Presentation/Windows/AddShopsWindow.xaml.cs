@@ -65,14 +65,6 @@ namespace Cadeaubons_Presentation.Windows
 				_domainManger.AddStore(storeDTO);
 				MessageHelper.ShowInfo("Registration successful!");
 			}
-			catch (InvalidOperationException ex)
-			{
-				MessageHelper.ShowError(ex.Message);
-			}
-			catch (ArgumentException ex)
-			{
-				MessageHelper.ShowError(ex.Message);
-			}
 			catch (Exception ex)
 			{
 				MessageHelper.ShowError(ex.Message);
