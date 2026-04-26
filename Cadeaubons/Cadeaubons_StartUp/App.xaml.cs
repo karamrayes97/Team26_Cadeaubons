@@ -21,7 +21,8 @@ namespace Cadeaubons.StartUp
             CityService cityService = new CityService(repository);
             StoreService storeService = new StoreService(repository);
             ThemeService themeService = new ThemeService(repository);
-            DomainManager domainManager = new DomainManager(userService,cityService,storeService, themeService);
+            VoucherService voucherService = new VoucherService(repository);
+            DomainManager domainManager = new DomainManager(userService,cityService,storeService, themeService,voucherService);
 
             CadeaubonsApplication application = new(domainManager);
             application.Start();

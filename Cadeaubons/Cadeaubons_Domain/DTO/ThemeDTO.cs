@@ -14,7 +14,16 @@ namespace Cadeaubons_Domain.DTO
         string IconPath,
         string PrimaryColor
     )
+       
+       
     {
         public ThemeDTO(Theme theme ) : this(theme.Id, theme.Name, theme.Description, theme.IconPath, theme.PrimaryColor) { }
+
+		public override string ToString()
+		{
+			return this.Name;
+		}
     }
+
+    
 }

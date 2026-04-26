@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Cadeaubons_Presentation.Helpers;
 using Cadeaubons_Domain.DTO;
+using Cadeaubons_Domain.Model;
 
 namespace Cadeaubons_Presentation.Windows
 {
@@ -74,6 +75,13 @@ namespace Cadeaubons_Presentation.Windows
                     adminWindow.Show();
                     this.Close();
                 }
+
+                if (user != null)
+                {
+                    Session.CurrentUser = user;
+                }
+
+
 
             }
             catch (InvalidOperationException ex)

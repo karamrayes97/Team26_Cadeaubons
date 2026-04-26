@@ -46,5 +46,12 @@ namespace Cadeaubons_Presentation.Windows
             window.Show();
             this.Close();
         }
+
+		private void PurchaseButton_Click(object sender, RoutedEventArgs e)
+		{
+            BuyGiftCardWindow window = new BuyGiftCardWindow(_dm);
+            window.Show();
+            this.Close();
+        }
     }
 }

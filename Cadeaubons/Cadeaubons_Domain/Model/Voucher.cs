@@ -68,7 +68,7 @@ namespace Cadeaubons_Domain.Model
 
         [ForeignKey("Buyer")]
         [Column("BuyerId")]
-        public int BuyerId { get; private set; }
+        public int BuyerId { get;  set; }
 
         private User _buyer;
         public User Buyer
@@ -104,7 +104,7 @@ namespace Cadeaubons_Domain.Model
 
         [ForeignKey("Theme")]
 		[Column("ThemeId")]
-		public int ThemeId { get; private set; }
+		public int ThemeId { get;  set; }
 
         private Theme _theme;
 		public Theme Theme

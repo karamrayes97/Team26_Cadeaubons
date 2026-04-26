@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Add Store Window" HorizontalAlignment="Left" Margin="159,89,0,0" VerticalAlignment="Top" Width="142" Click="Button_Click"/>
+        <Button Content="Add Store Window" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click" Style="{StaticResource PrimaryButton}"/>
 
     </Grid>
 </Window>
