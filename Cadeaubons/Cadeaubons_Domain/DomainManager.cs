@@ -20,13 +20,15 @@ namespace Cadeaubons_Domain
 		private readonly StoreService _storeService;
         private readonly ThemeService _themeService;
 
+        private readonly VoucherService _voucherService;
 
-        public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService)
+        public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService ,VoucherService voucherService)
         {
             _userService = userService;
             _cityService = cityService;
             _storeService = storeService;
             _themeService = themeService;
+            _voucherService = voucherService;
         }
 
         public List<UserDTO> GetUsers()
@@ -62,6 +64,11 @@ namespace Cadeaubons_Domain
         public List<ThemeDTO> GetAllThemes()
         {
             return _themeService.GetAll();
+        }
+
+        public void AddVoucher(VoucherDTO voucher)
+        {
+            _voucherService.AddVoucher(voucher);
         }
 
         public ThemeDTO AddTheme(string name, string description, string iconPath, string primaryColor)

@@ -52,6 +52,7 @@
                     Margin="0,0,0,10"/>
 
         </StackPanel>
+        <Button x:Name="PurchaseButton" Content="Purchase GiftCard" HorizontalAlignment="Center" Margin="0,312,0,0" Grid.Row="1" VerticalAlignment="Top" Width="300" Click="PurchaseButton_Click" Style="{StaticResource PrimaryButton}"/>
 
     </Grid>
 </Window>
