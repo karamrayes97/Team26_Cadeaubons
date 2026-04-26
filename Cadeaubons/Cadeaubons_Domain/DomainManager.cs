@@ -22,7 +22,7 @@ namespace Cadeaubons_Domain
 
         private readonly VoucherService _voucherService;
 
-        public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService ,VoucherService voucherService)
+		public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService ,VoucherService voucherService)
         {
             _userService = userService;
             _cityService = cityService;
