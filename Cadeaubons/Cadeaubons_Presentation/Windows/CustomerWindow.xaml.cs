@@ -53,5 +53,12 @@ namespace Cadeaubons_Presentation.Windows
             window.Show();
             this.Close();
         }
+
+        private void BtnMyOrders_Click(object sender, RoutedEventArgs e)
+        {
+            MyVouchersWindow window = new MyVouchersWindow(_dm, _currentUser);
+            window.Show();
+            this.Close();
+        }
     }
 }

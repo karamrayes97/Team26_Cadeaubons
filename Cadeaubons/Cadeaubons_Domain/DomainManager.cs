@@ -86,5 +86,10 @@ namespace Cadeaubons_Domain
             _themeService.Delete(id);
         }
 
+        public List<VoucherOverviewDTO> GetVouchersForUser(int userId)
+        {
+            return _voucherService.GetVouchersForUser(userId);
+        }
+
     }
 }

@@ -44,8 +44,13 @@
                 Click="BtnViewThemes_Click"/>
 
             <Button Content="My Orders"
+                            x:Name="BtnMyOrders"
                 Style="{StaticResource PrimaryButton}"
-                    Margin="0,0,0,10"/>
+                    Margin="0,0,0,10"
+                            Click="BtnMyOrders_Click"/>
+            
+            
+            
 
             <Button Content="Profile"
                 Style="{StaticResource PrimaryButton}"

@@ -17,6 +17,10 @@ namespace Cadeaubons.StartUp
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             Repository repository = new Repository();
+
+            TestDataSeeder.Seed(repository);
+
+
             UserService userService = new UserService(repository);
             CityService cityService = new CityService(repository);
             StoreService storeService = new StoreService(repository);

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Cadeaubons_Domain.Services
 {
@@ -32,5 +34,30 @@ namespace Cadeaubons_Domain.Services
 			_repository.Add(voucher);
 			_repository.SaveChanges();
 		}
-	}
+	
+
+	public List<VoucherOverviewDTO> GetVouchersForUser(int userId)
+		{
+			var vouchers = _repository.Vouchers
+				.Include(v => v.Theme)
+				.Include(v => v.Buyer)
+				.Include(v => v.User)
+				.Where(v => v.BuyerId == userId || v.UserId == userId)
+				.OrderByDescending(v => v.PurchaseDate)
+				.ToList();
+
+			var voucherIds = vouchers.Select(v => v.Id).ToList();
+
+			var consumptions = _repository.Consumptions
+				.Include(c => c.Store)
+				.Where(c => voucherIds.Contains(c.VoucherId))
+				.ToList();
+
+			return vouchers
+				.Select(v => new VoucherOverviewDTO(
+					v,
+					consumptions.Where(c => c.VoucherId == v.Id)))
+				.ToList();
+		}
+	} 
 }

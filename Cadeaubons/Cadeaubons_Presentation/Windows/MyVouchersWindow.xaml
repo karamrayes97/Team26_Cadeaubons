@@ -1,0 +1,62 @@
+﻿<Window x:Class="Cadeaubons_Presentation.Windows.MyVouchersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Mijn Cadeaubons" Height="600" Width="900">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Mijn Cadeaubons"
+                   Style="{StaticResource WindowTitle}"
+                   Margin="0,0,0,10"/>
+
+        <DataGrid Grid.Row="1"
+                  x:Name="VouchersGrid"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  SelectionChanged="VouchersGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Bonnummer"     Binding="{Binding Number}" Width="160"/>
+                <DataGridTextColumn Header="Thema"         Binding="{Binding ThemeName}" Width="120"/>
+                <DataGridTextColumn Header="Aankoopdatum"  Binding="{Binding PurchaseDate, StringFormat=dd/MM/yyyy}" Width="110"/>
+                <DataGridTextColumn Header="Initieel"      Binding="{Binding InitialAmount, StringFormat=C}" Width="90"/>
+                <DataGridTextColumn Header="Saldo"         Binding="{Binding RemainingAmount, StringFormat=C}" Width="90"/>
+                <DataGridTextColumn Header="Geldigheid"    Binding="{Binding ValidityText}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <GroupBox Grid.Row="1"
+                  x:Name="DetailsBox"
+                  Header="Gebruik van de bon"
+                  VerticalAlignment="Bottom"
+                  Margin="0,250,0,0"
+                  Visibility="Collapsed">
+            <DataGrid x:Name="ConsumptionsGrid"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      Height="180">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Datum"   Binding="{Binding Date, StringFormat=dd/MM/yyyy HH:mm}" Width="140"/>
+                    <DataGridTextColumn Header="Winkel"  Binding="{Binding StoreName}" Width="160"/>
+                    <DataGridTextColumn Header="Bedrag"  Binding="{Binding Amount, StringFormat=C}" Width="100"/>
+                    <DataGridTextColumn Header="Reden"   Binding="{Binding Reason}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <Button Grid.Row="2"
+                Content="Terug"
+                HorizontalAlignment="Left"
+                Width="120"
+                Margin="0,10,0,0"
+                Style="{StaticResource PrimaryButton}"
+                Click="BtnBack_Click"/>
+    </Grid>
+</Window>
