@@ -22,13 +22,16 @@ namespace Cadeaubons_Domain
 
         private readonly VoucherService _voucherService;
 
-		public DomainManager(UserService userService , CityService cityService,StoreService storeService, ThemeService themeService ,VoucherService voucherService)
+        private readonly PaymentService _paymentService;
+
+        public DomainManager(UserService userService, CityService cityService, StoreService storeService, ThemeService themeService, VoucherService voucherService, PaymentService paymentService)
         {
             _userService = userService;
             _cityService = cityService;
             _storeService = storeService;
             _themeService = themeService;
             _voucherService = voucherService;
+            _paymentService = paymentService;
         }
 
         public List<UserDTO> GetUsers()
@@ -66,9 +69,9 @@ namespace Cadeaubons_Domain
             return _themeService.GetAll();
         }
 
-        public void AddVoucher(VoucherDTO voucher)
+        public Voucher AddVoucher(VoucherDTO voucher)
         {
-            _voucherService.AddVoucher(voucher);
+            return _voucherService.AddVoucher(voucher);
         }
 
         public ThemeDTO AddTheme(string name, string description, string iconPath, string primaryColor)
@@ -91,5 +94,9 @@ namespace Cadeaubons_Domain
             return _voucherService.GetVouchersForUser(userId);
         }
 
+        public void AddPayment(PaymentDTO paymentDTO)
+        {
+            _paymentService.AddPayment(paymentDTO);
+        }
     }
 }

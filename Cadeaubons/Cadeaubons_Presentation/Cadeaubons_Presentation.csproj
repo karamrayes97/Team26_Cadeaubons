@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cadeaubons_API\Cadeaubons_API.csproj" />
     <ProjectReference Include="..\Cadeaubons_Domain\Cadeaubons_Domain.csproj" />
   </ItemGroup>
 

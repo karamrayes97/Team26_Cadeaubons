@@ -15,4 +15,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Cadeaubons_Domain\Cadeaubons_Domain.csproj" />
+  </ItemGroup>
+
 </Project>

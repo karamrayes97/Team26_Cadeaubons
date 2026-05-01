@@ -1,14 +1,19 @@
-﻿using Cadeaubons_Domain;
+﻿using Cadeaubons_API;
+using Cadeaubons_Domain;
 using Cadeaubons_Domain.DTO;
 using Cadeaubons_Domain.Model;
 using Cadeaubons_Presentation.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,15 +23,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Net.Http;
-using System.Text.Json;
-using System.Diagnostics;
 
 namespace Cadeaubons_Presentation.Windows
 {
+
+
 	public class CheckoutResponse
 	{
 		public string url { get; set; }
+		public string sessionId { get; set; }
 	}
 	/// <summary>
 	/// Interaction logic for BuyGiftCardWindow.xaml
@@ -50,13 +55,18 @@ namespace Cadeaubons_Presentation.Windows
 
 		}
 
-		public async Task StartStripeAsync()
+		public async Task StartStripeAsync(VoucherDTO dTO)
 		{
 			using var client = new HttpClient();
 
-			var response = await client.PostAsync(
+			////var response = await client.PostAsync(
+			////	"https://localhost:7011/create-checkout-session",
+			////	null
+			////);
+
+			var response = await client.PostAsJsonAsync(
 				"https://localhost:7011/create-checkout-session",
-				null
+				dTO
 			);
 
 			response.EnsureSuccessStatusCode();
@@ -64,10 +74,13 @@ namespace Cadeaubons_Presentation.Windows
 			var json = await response.Content.ReadAsStringAsync();
 			var data = JsonSerializer.Deserialize<CheckoutResponse>(json);
 
+
+
 			Process.Start(new ProcessStartInfo
 			{
 				FileName = data.url,
 				UseShellExecute = true
+
 			});
 		}
 
@@ -140,30 +153,22 @@ namespace Cadeaubons_Presentation.Windows
 				}
 
 			}
-			await StartStripeAsync();
-
-			var result1 = MessageBox.Show(
-			   "Did you complete the payment?",
-			   "Payment confirmation",
-			   MessageBoxButton.YesNo,
-			   MessageBoxImage.Question
-		   );
-
-			if (result1 == MessageBoxResult.No)
-
-			{
-				return;
-			}
-
+			//ngrok http https://localhost:7011
 			try
 			{
-				_domainManager.AddVoucher(voucherDTO);
-				MessageHelper.ShowInfo("Registration successful!");
-			}		
+				await StartStripeAsync(voucherDTO);
+				MessageHelper.ShowInfo("Redirecting to payment...");
+			}
 			catch (Exception ex)
 			{
+
 				MessageHelper.ShowError(ex.Message);
 			}
+
+
+
+
+
 		}
 
 

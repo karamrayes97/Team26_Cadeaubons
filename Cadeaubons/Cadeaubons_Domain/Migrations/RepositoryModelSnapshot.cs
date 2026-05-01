@@ -98,6 +98,10 @@ namespace Cadeaubons_Domain.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("Amount");
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Date");
+
                     b.Property<int>("Status")
                         .HasColumnType("int")
                         .HasColumnName("Status");

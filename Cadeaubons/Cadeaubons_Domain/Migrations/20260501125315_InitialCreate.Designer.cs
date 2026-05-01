@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadeaubons_Domain.Migrations
 {
     [DbContext(typeof(Repository))]
-    [Migration("20260411124930_Initial")]
-    partial class Initial
+    [Migration("20260501125315_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -100,6 +100,10 @@ namespace Cadeaubons_Domain.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("Amount");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Date");
 
                     b.Property<int>("Status")
                         .HasColumnType("int")

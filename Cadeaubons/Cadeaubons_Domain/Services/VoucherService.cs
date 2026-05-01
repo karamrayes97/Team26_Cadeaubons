@@ -20,7 +20,7 @@ namespace Cadeaubons_Domain.Services
 			_repository = repository;
 		}
 
-		public void AddVoucher(VoucherDTO voucherDTO)
+		public Voucher AddVoucher(VoucherDTO voucherDTO)
 		{
 			Voucher voucher = new Voucher
 			{
@@ -33,6 +33,7 @@ namespace Cadeaubons_Domain.Services
 			};
 			_repository.Add(voucher);
 			_repository.SaveChanges();
+			return voucher;
 		}
 	
 

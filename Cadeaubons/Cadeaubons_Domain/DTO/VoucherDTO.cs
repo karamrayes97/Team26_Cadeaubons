@@ -8,6 +8,7 @@ namespace Cadeaubons_Domain.DTO
 {
 	public class VoucherDTO
 	{
+		//public int Id { get; set; } = 9999;
 		public int InitialAmount { get; set; }
 
 		public DateTime PurchaseDate { get; set; }

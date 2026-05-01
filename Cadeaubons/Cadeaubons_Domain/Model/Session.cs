@@ -9,6 +9,10 @@ namespace Cadeaubons_Domain.Model
 {
 	public class Session
 	{
-		public static UserDTO CurrentUser { get; set; } 
+		public static UserDTO CurrentUser { get; set; }
+
+		//public static string StripeSessionId { get; set; }
+
+		//public static bool StripePaymentSuccess { get; set; }
 	}
 }
