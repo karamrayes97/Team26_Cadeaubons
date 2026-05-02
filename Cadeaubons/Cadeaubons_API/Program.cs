@@ -22,6 +22,7 @@ namespace Cadeaubons_API
 			builder.Services.AddScoped<Repository>();
 			builder.Services.AddScoped<VoucherService>();
 			builder.Services.AddScoped<PaymentService>();
+			builder.Services.AddScoped<ConsumptionService>();
 
 
 			builder.Services.AddScoped<DomainManager>();
