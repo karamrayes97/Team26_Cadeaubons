@@ -37,7 +37,7 @@ namespace Cadeaubons_Domain.Services
 		}
 	
 
-	public List<VoucherOverviewDTO> GetVouchersForUser(int userId)
+		public List<VoucherOverviewDTO> GetVouchersForUser(int userId)
 		{
 			var vouchers = _repository.Vouchers
 				.Include(v => v.Theme)
@@ -60,5 +60,5 @@ namespace Cadeaubons_Domain.Services
 					consumptions.Where(c => c.VoucherId == v.Id)))
 				.ToList();
 		}
-	} 
+    } 
 }

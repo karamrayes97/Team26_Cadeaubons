@@ -1,13 +1,15 @@
-﻿using Cadeaubons_Domain.DTO;
-using Cadeaubons_Domain.Model;
-using Cadeaubons_Domain.Repo;
-using Cadeaubons_Domain.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Cadeaubons_Domain.DTO;
+using Cadeaubons_Domain.Model;
+using Cadeaubons_Domain.Repo;
+using Cadeaubons_Domain.Services;
+using Stripe;
+using Stripe.V2;
 
 namespace Cadeaubons_Domain
 {
@@ -24,7 +26,9 @@ namespace Cadeaubons_Domain
 
         private readonly PaymentService _paymentService;
 
-        public DomainManager(UserService userService, CityService cityService, StoreService storeService, ThemeService themeService, VoucherService voucherService, PaymentService paymentService)
+        private readonly ConsumptionService _consumptionService;
+
+        public DomainManager(UserService userService, CityService cityService, StoreService storeService, ThemeService themeService, VoucherService voucherService, PaymentService paymentService, ConsumptionService consumptionService)
         {
             _userService = userService;
             _cityService = cityService;
@@ -32,6 +36,7 @@ namespace Cadeaubons_Domain
             _themeService = themeService;
             _voucherService = voucherService;
             _paymentService = paymentService;
+            _consumptionService = consumptionService;
         }
 
         public List<UserDTO> GetUsers()
@@ -62,6 +67,11 @@ namespace Cadeaubons_Domain
         public void AddStore(StoreDTO city)
         {
             _storeService.AddStore(city);
+        }
+
+        public List<StoreDTO> GetAllStores()
+        {
+            return _storeService.GetAll();
         }
 
         public List<ThemeDTO> GetAllThemes()
@@ -97,6 +107,12 @@ namespace Cadeaubons_Domain
         public void AddPayment(PaymentDTO paymentDTO)
         {
             _paymentService.AddPayment(paymentDTO);
+        }
+
+        public ConsumptionDTO AddConsumption(VoucherOverviewDTO voucherOverviewDTO, ConsumptionDTO consumptionDTO)
+        {
+            return _consumptionService
+                .Add(consumptionDTO, voucherOverviewDTO.RemainingAmount, voucherOverviewDTO.IsExpired);
         }
     }
 }

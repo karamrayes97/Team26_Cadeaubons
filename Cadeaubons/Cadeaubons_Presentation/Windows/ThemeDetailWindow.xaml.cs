@@ -48,8 +48,6 @@ namespace Cadeaubons_Presentation.Windows
             var color = (Color)ColorConverter.ConvertFromString(_theme.PrimaryColor);
 
             ColorPreview.Background = new SolidColorBrush(color);
-
-            ColorCodeText.Text = $"Color code: {_theme.PrimaryColor}";
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

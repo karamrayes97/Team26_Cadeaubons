@@ -51,12 +51,26 @@
             </DataGrid>
         </GroupBox>
 
-        <Button Grid.Row="2"
-                Content="Terug"
-                HorizontalAlignment="Left"
-                Width="120"
-                Margin="0,10,0,0"
-                Style="{StaticResource PrimaryButton}"
-                Click="BtnBack_Click"/>
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="BtnConsume"
+            Content="Redeem voucher"
+            Width="160"
+            Style="{StaticResource PrimaryButton}"
+            Click="BtnConsume_Click"
+            IsEnabled="False"
+            Grid.Column="0"/>
+
+            <Button Content="Terug"
+            Width="120"
+            Style="{StaticResource SecondaryButton}"
+            Click="BtnBack_Click"
+            Grid.Column="2"/>
+        </Grid>
     </Grid>
 </Window>
