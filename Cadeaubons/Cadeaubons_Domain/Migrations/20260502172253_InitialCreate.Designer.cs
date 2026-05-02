@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cadeaubons_Domain.Migrations
 {
     [DbContext(typeof(Repository))]
-    [Migration("20260501125315_InitialCreate")]
+    [Migration("20260502172253_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
