@@ -66,13 +66,6 @@
                         CornerRadius="12"
                         Margin="0,0,0,20"/>
 
-                <!-- Color Code -->
-                <TextBlock x:Name="ColorCodeText"
-                           FontSize="12"
-                           Foreground="Gray"
-                           TextAlignment="Center"
-                           Margin="0,0,0,30"/>
-
             </StackPanel>
         </ScrollViewer>
 

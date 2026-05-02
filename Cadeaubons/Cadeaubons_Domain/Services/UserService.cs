@@ -70,18 +70,13 @@ namespace Cadeaubons_Domain.Services
                 throw new InvalidOperationException("Invalid email or password.");
 
             if (!user.IsActive)
-                throw new InvalidOperationException("This account is not active");
+                throw new InvalidOperationException("This account is not active.");
 
             return new UserDTO(user);
         }
 
         private User? GetUserModelByEmail(string email)
         {
-            // EntityFramework kon niet werken met OrdinalIgnoreCase, input word bij het registreren ook toLower opgeslaan
-            //return _repository
-            //    .Users
-            //    .FirstOrDefault(u => string.Equals(email.Trim(), u.Email, StringComparison.OrdinalIgnoreCase));
-
             return _repository
                 .Users
                 .FirstOrDefault(u => u.Email == email.Trim().ToLower());

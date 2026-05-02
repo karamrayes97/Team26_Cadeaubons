@@ -1,6 +1,7 @@
 ﻿using Cadeaubons_Domain.DTO;
 using Cadeaubons_Domain.Model;
 using Cadeaubons_Domain.Repo;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,13 @@ namespace Cadeaubons_Domain.Services
 			_repository.Add(store);
 			_repository.SaveChanges();
 		}
-	}
+
+        public List<StoreDTO> GetAll()
+		{
+			return _repository
+				.Stores
+				.Include(s => s.City)
+				.Select(s => new StoreDTO(s)).ToList();
+        }
+    }
 }

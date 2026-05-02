@@ -55,11 +55,11 @@ namespace Cadeaubons_Domain.Model
         }
 
         [Column("Date")]
-		public DateTime Date { get; } = DateTime.Now;
+		public DateTime Date { get; set; } = DateTime.Now;
 
         [ForeignKey("Voucher")]
 		[Column("VoucherId")]
-		public int VoucherId { get; private set; }
+		public int VoucherId { get; set; }
 
         private Voucher _voucher;
 		public Voucher Voucher
@@ -77,7 +77,7 @@ namespace Cadeaubons_Domain.Model
 
         [ForeignKey("Store")]
 		[Column("StoreId")]
-		public int StoreId { get; private set; }
+		public int StoreId { get; set; }
 
         private Store _store;
 		public Store Store

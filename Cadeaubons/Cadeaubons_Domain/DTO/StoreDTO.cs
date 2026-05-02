@@ -9,7 +9,9 @@ namespace Cadeaubons_Domain.DTO
 {
 	public class StoreDTO
 	{
-		public string Name { get; set; }
+        public int Id {  get; set; }
+
+        public string Name { get; set; }
 
 		public string Adress { get; set; }
 
@@ -24,11 +26,11 @@ namespace Cadeaubons_Domain.DTO
 
 		public StoreDTO(Store store)
 		{
+			Id = store.Id;
 			this.Name = store.Name;
 			this.Adress = store.Address;
 			this.PhoneNumber = store.PhoneNumber;
-			this.City.Name = store.City.Name;
-			this.City.ZipCode = store.City.PostalCode;
+			this.City = new CityDTO(store.City);
 		}
 	}
 }

@@ -27,7 +27,8 @@ namespace Cadeaubons.StartUp
             ThemeService themeService = new ThemeService(repository);
             VoucherService voucherService = new VoucherService(repository);
             PaymentService paymentService = new PaymentService(repository);
-            DomainManager domainManager = new DomainManager(userService,cityService,storeService, themeService,voucherService, paymentService);
+            ConsumptionService consumptionService = new ConsumptionService(repository);
+            DomainManager domainManager = new DomainManager(userService,cityService,storeService, themeService,voucherService, paymentService, consumptionService);
 
             CadeaubonsApplication application = new(domainManager);
             application.Start();

@@ -32,11 +32,22 @@ namespace Cadeaubons_Presentation.Windows
                 DetailsBox.Visibility = selected.Consumptions.Count > 0
                     ? Visibility.Visible
                     : Visibility.Collapsed;
+
+                BtnConsume.IsEnabled = !selected.IsExpired && selected.RemainingAmount > 0;
             }
             else
             {
                 DetailsBox.Visibility = Visibility.Collapsed;
+                BtnConsume.IsEnabled = false;
             }
+        }
+
+        private void BtnConsume_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = (VoucherOverviewDTO) VouchersGrid.SelectedItem;
+            var window = new ConsumeVoucherWindow(_dm, _currentUser, selected);
+            window.Show();
+            this.Close();
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)

@@ -153,7 +153,19 @@
                                         Value="{StaticResource PrimaryBrush}"/>
 								<Setter TargetName="border" Property="Opacity" Value="0.85"/>
 							</Trigger>
-						</ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="border"
+                                Property="Background"
+                                Value="#CCCCCC"/>
+                                <Setter TargetName="border"
+                                Property="Opacity"
+                                Value="0.6"/>
+                                <Setter Property="Foreground"
+                                Value="#888888"/>
+                                <Setter Property="Cursor"
+                                Value="Arrow"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
