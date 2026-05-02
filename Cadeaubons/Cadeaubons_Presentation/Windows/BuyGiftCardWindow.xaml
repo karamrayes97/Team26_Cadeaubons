@@ -24,6 +24,7 @@
         <Button Content="Buy For Your self" HorizontalAlignment="Center" Margin="0,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.679,0.501" Width="154" Click="Button_Click" Style="{StaticResource PrimaryButton}" Height="36"/>
         <ComboBox x:Name="ThemeComboBox" HorizontalAlignment="Center" Margin="0,159,0,0" VerticalAlignment="Top" Width="246"/>
         <TextBlock HorizontalAlignment="Center" Margin="0,123,0,0" TextWrapping="Wrap" Text="Chose Theme" VerticalAlignment="Top" Width="246" Style="{StaticResource FieldLabel}"/>
+        <Button Content="Return" HorizontalAlignment="Left" Margin="709,65,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
 
     </Grid>
 </Window>

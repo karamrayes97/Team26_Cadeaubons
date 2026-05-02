@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -171,6 +172,12 @@ namespace Cadeaubons_Presentation.Windows
 
 		}
 
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			CustomerWindow window = new CustomerWindow(_domainManager,Session.CurrentUser);
+			window.Show();
+			this.Close();
 
+		}
 	}
 }
