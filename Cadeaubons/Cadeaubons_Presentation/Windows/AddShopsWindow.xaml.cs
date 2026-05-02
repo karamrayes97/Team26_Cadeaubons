@@ -32,44 +32,60 @@ namespace Cadeaubons_Presentation.Windows
 			CitiesListComboBox.SelectedIndex = 0;
 		}
 
-
-		private void Button_Click(object sender, RoutedEventArgs e)
-		{
-
-			StoreDTO storeDTO = new StoreDTO();
-			storeDTO.Name = StoreNameTextBox.Text.Trim();
-			storeDTO.Adress = StoreAdressTextBox.Text;
-			storeDTO.PhoneNumber = StoreNumberTextBox.Text.Trim();
-			storeDTO.City = (CityDTO)CitiesListComboBox.SelectedItem;
-
-			foreach (PropertyInfo prop in storeDTO.GetType().GetProperties())
-			{
-				var value = prop.GetValue(storeDTO);
-
-				if (value == null)
-				{
-					MessageHelper.ShowWarning($"Please enter {prop.Name}.");
-					return;
-				}
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            AdminWindow window = new AdminWindow(_domainManger);
+            window.Show();
+            this.Close();
+        }
 
 
-				if (value is string str && string.IsNullOrWhiteSpace(str))
-				{
-					MessageHelper.ShowWarning($"Please enter {prop.Name}.");
-					return;
-				}
-			}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            StoreDTO storeDTO = new StoreDTO();
+            storeDTO.Name = StoreNameTextBox.Text.Trim();
+            storeDTO.Adress = StoreAdressTextBox.Text;
+            storeDTO.PhoneNumber = StoreNumberTextBox.Text.Trim();
+            storeDTO.City = (CityDTO)CitiesListComboBox.SelectedItem;
 
-			try
-			{
-				_domainManger.AddStore(storeDTO);
-				MessageHelper.ShowInfo("Registration successful!");
-			}
-			catch (Exception ex)
-			{
-				MessageHelper.ShowError(ex.Message);
-			}
-			
-		}
-	}
+            foreach (PropertyInfo prop in storeDTO.GetType().GetProperties())
+            {
+                var value = prop.GetValue(storeDTO);
+
+                if (value == null)
+                {
+                    MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
+
+
+                if (value is string str && string.IsNullOrWhiteSpace(str))
+                {
+                    MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
+            }
+
+            try
+            {
+                _domainManger.AddStore(storeDTO);
+                MessageHelper.ShowInfo("Winkel succesvol toegevoegd!");
+            }
+            catch (Exception ex)
+            {
+                MessageHelper.ShowError(ex.Message);
+            }
+        }
+
+        private static string TranslateField(string propName) => propName switch
+        {
+            "Name" => "een naam",
+            "Adress" => "een adres",
+            "PhoneNumber" => "een telefoonnummer",
+            "City" => "een stad",
+            _ => propName
+        };
+    }
+
+
 }

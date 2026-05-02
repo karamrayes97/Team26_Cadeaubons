@@ -52,19 +52,19 @@ namespace Cadeaubons_Presentation.Windows
         {
             if (!decimal.TryParse(TxtAmount.Text, out decimal amount))
             {
-                MessageHelper.ShowWarning("Please enter a valid amount.");
+                MessageHelper.ShowWarning("Voer een geldig bedrag in.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(TxtReason.Text))
             {
-                MessageHelper.ShowWarning("Please enter a reason.");
+                MessageHelper.ShowWarning("Voer een reden in.");
                 return;
             }
 
             if (CbStores.SelectedItem is not StoreDTO selectedStore)
             {
-                MessageHelper.ShowWarning("Please choose a store.");
+                MessageHelper.ShowWarning("Kies een winkel.");
                 return;
             }
 
@@ -78,9 +78,9 @@ namespace Cadeaubons_Presentation.Windows
 
             try
             {
-                _dm.AddConsumption( _voucherOverviewDTO, consumption);
+                _dm.AddConsumption(_voucherOverviewDTO, consumption);
 
-                MessageHelper.ShowInfo("Consumption successfully registered.");
+                MessageHelper.ShowInfo("Verbruik succesvol geregistreerd.");
                 OpenMyVouchersWindow();
             }
             catch (Exception ex)

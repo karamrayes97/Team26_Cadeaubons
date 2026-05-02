@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="ThemeDetailWindow" Height="450" Width="800">
+        Title="Thema details" Height="450" Width="800"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <!-- Grid: Header + Content -->
         <Grid.RowDefinitions>
@@ -16,7 +18,7 @@
         <!-- Header -->
         <DockPanel Grid.Row="0" Margin="10">
             <!-- Back knop -->
-            <Button Content="← Back"
+            <Button Content="← Terug"
                     Style="{StaticResource SecondaryButton}"
                     DockPanel.Dock="Right"
                     Width="100"
@@ -25,7 +27,7 @@
             <!-- Logo + Titel -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <TextBlock Text="🎨" FontSize="28" Margin="0,0,10,0"/>
-                <TextBlock x:Name="ThemeTitle" Text="Theme Detail" Style="{StaticResource WindowTitle}" VerticalAlignment="Center"/>
+                <TextBlock x:Name="ThemeTitle" Text="Thema details" Style="{StaticResource WindowTitle}" VerticalAlignment="Center"/>
             </StackPanel>
         </DockPanel>
 
@@ -57,7 +59,7 @@
                            Margin="0,0,0,25"/>
 
                 <!-- Color Section -->
-                <TextBlock Text="Primary Color"
+                <TextBlock Text="Hoofdkleur"
                            Style="{StaticResource FieldLabel}"
                            Margin="0,0,0,5"/>
 

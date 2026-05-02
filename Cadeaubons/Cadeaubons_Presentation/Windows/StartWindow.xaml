@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="Gift Voucher Platform"
+        Title="Cadeaubonnen"
         Height="550"
         Width="800"
         MinHeight="450"
@@ -24,47 +24,47 @@
                            HorizontalAlignment="Center"
                            Margin="0,0,0,5"/>
 
-                <TextBlock Text="Welcome"
+            <TextBlock Text="Welkom"
                            Style="{StaticResource WindowTitle}"
                            Margin="0,0,0,5"/>
 
-                <TextBlock Text="Log in to your account or register as a new user."
+            <TextBlock Text="Meld je aan of registreer als nieuwe gebruiker."
                            FontSize="14"
                            Foreground="Gray"
                            TextAlignment="Center"
                            Margin="0,0,0,25"/>
 
-                <!-- Email -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="✉" FontSize="14" Margin="0,0,6,0"
+            <!-- Email -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="✉" FontSize="14" Margin="0,0,6,0"
                                VerticalAlignment="Center"/>
-                    <TextBlock Text="Email" Style="{StaticResource FieldLabel}"/>
-                </StackPanel>
-                <TextBox x:Name="TxtEmail"
+                <TextBlock Text="E-mail" Style="{StaticResource FieldLabel}"/>
+            </StackPanel>
+            <TextBox x:Name="TxtEmail"
                          Style="{StaticResource RoundedTextBox}"
                          Margin="0,0,0,15"/>
 
-                <!-- Password -->
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBlock Text="🔒" FontSize="14" Margin="0,0,6,0"
+            <!-- Password -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Text="🔒" FontSize="14" Margin="0,0,6,0"
                                VerticalAlignment="Center"/>
-                    <TextBlock Text="Password" Style="{StaticResource FieldLabel}"/>
-                </StackPanel>
-                <PasswordBox x:Name="PwdPassword"
+                <TextBlock Text="Wachtwoord" Style="{StaticResource FieldLabel}"/>
+            </StackPanel>
+            <PasswordBox x:Name="PwdPassword"
                              Style="{StaticResource RoundedPasswordBox}"
                              Margin="0,0,0,25"/>
 
-                <Button x:Name="BtnLogin"
-                        Content="Login"
+            <Button x:Name="BtnLogin"
+                        Content="Aanmelden"
                         Style="{StaticResource PrimaryButton}"
                         Margin="0,0,0,12"
                         Click="BtnLogin_Click"/>
 
-                <Button x:Name="BtnRegister"
-                        Content="Register as new user"
+            <Button x:Name="BtnRegister"
+                        Content="Registreren als nieuwe gebruiker"
                         Style="{StaticResource SecondaryButton}"
                         Click="BtnRegister_Click"/>
-            </StackPanel>
-        
+        </StackPanel>
+
     </Grid>
 </Window>

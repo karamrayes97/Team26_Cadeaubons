@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="Manage Themes" Height="550" Width="800"
+        Title="Thema's beheren" Height="550" Width="800"
         Background="White"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -17,7 +17,7 @@
 
         <!-- Header -->
         <DockPanel Grid.Row="0" Margin="10">
-            <Button Content="← Back"
+            <Button Content="← Terug"
                     Style="{StaticResource SecondaryButton}"
                     DockPanel.Dock="Right"
                     Width="100"
@@ -25,7 +25,7 @@
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="🎨" FontSize="28" Margin="0,0,10,0"/>
-                <TextBlock Text="Manage Themes"
+                <TextBlock Text="Thema's beheren"
                            Style="{StaticResource WindowTitle}"
                            VerticalAlignment="Center"/>
             </StackPanel>
@@ -91,7 +91,7 @@
         </ListBox>
 
         <!-- Add Button -->
-        <Button Content="+ Add New Theme"
+        <Button Content="+ Nieuw thema toevoegen"
                 Grid.Row="2"
                 Style="{StaticResource PrimaryButton}"
                 Margin="20,10,20,15"

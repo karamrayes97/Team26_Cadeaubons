@@ -29,7 +29,7 @@ namespace Cadeaubons_Presentation.Windows
             InitializeComponent();
             _dm = dm;
             _currentUser = currentUser;
-            TxtWelcome.Text = $"Welcome {_currentUser.FirstName} !";
+            TxtWelcome.Text = $"Welkom {_currentUser.FirstName}!";
         }
 
         private void BtnViewThemes_Click(object sender, RoutedEventArgs e)

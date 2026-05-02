@@ -64,8 +64,8 @@ namespace Cadeaubons_Presentation.Windows
             int themeId = (int)((Button)sender).Tag;
 
             MessageBoxResult result = MessageBox.Show(
-                "Are you sure you want to delete this theme?",
-                "Confirm Delete",
+                "Ben je zeker dat je dit thema wil verwijderen?",
+                "Verwijderen bevestigen",
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Warning);
 
@@ -75,7 +75,7 @@ namespace Cadeaubons_Presentation.Windows
                 {
                     _dm.DeleteTheme(themeId);
                     LoadThemes();
-                    MessageHelper.ShowInfo("Theme deleted successfully.");
+                    MessageHelper.ShowInfo("Thema succesvol verwijderd.");
                 }
                 catch (Exception ex)
                 {

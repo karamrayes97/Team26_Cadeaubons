@@ -13,7 +13,7 @@ namespace Cadeaubons_Presentation.Helpers
         {
             MessageBox.Show(
                 message,
-                "Error",
+                "Fout",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
@@ -22,7 +22,7 @@ namespace Cadeaubons_Presentation.Helpers
         {
             MessageBox.Show(
                 message,
-                "Warning",
+                "Waarschuwing",
                 MessageBoxButton.OK,
                 MessageBoxImage.Warning);
         }
@@ -31,11 +31,9 @@ namespace Cadeaubons_Presentation.Helpers
         {
             MessageBox.Show(
                 message,
-                "Information",
+                "Informatie",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
-
-       
     }
 }

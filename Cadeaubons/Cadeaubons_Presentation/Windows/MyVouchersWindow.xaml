@@ -1,7 +1,9 @@
 ﻿<Window x:Class="Cadeaubons_Presentation.Windows.MyVouchersWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Mijn Cadeaubons" Height="600" Width="900">
+        Title="Mijn Cadeaubons" Height="600" Width="900"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -9,11 +11,23 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Text="Mijn Cadeaubons"
-                   Style="{StaticResource WindowTitle}"
-                   Margin="0,0,0,10"/>
+        <!-- Header -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <Button Content="← Terug"
+                    Style="{StaticResource SecondaryButton}"
+                    DockPanel.Dock="Right"
+                    Width="100"
+                    Click="BtnBack_Click"/>
 
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="🎁" FontSize="28" Margin="0,0,10,0"/>
+                <TextBlock Text="Mijn cadeaubonnen"
+                           Style="{StaticResource WindowTitle}"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Vouchers grid -->
         <DataGrid Grid.Row="1"
                   x:Name="VouchersGrid"
                   AutoGenerateColumns="False"
@@ -31,6 +45,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <!-- Details overlay -->
         <GroupBox Grid.Row="1"
                   x:Name="DetailsBox"
                   Header="Gebruik van de bon"
@@ -51,26 +66,16 @@
             </DataGrid>
         </GroupBox>
 
-        <Grid Grid.Row="2" Margin="0,10,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
+        <!-- Action button onderaan -->
+        <Button Grid.Row="2"
+                x:Name="BtnConsume"
+                Content="Cadeaubon inwisselen"
+                Width="180"
+                HorizontalAlignment="Left"
+                Margin="0,10,0,0"
+                Style="{StaticResource PrimaryButton}"
+                Click="BtnConsume_Click"
+                IsEnabled="False"/>
 
-            <Button x:Name="BtnConsume"
-            Content="Redeem voucher"
-            Width="160"
-            Style="{StaticResource PrimaryButton}"
-            Click="BtnConsume_Click"
-            IsEnabled="False"
-            Grid.Column="0"/>
-
-            <Button Content="Terug"
-            Width="120"
-            Style="{StaticResource SecondaryButton}"
-            Click="BtnBack_Click"
-            Grid.Column="2"/>
-        </Grid>
     </Grid>
 </Window>

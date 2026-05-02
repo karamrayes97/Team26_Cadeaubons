@@ -45,7 +45,8 @@ namespace Cadeaubons_Presentation.Windows
 			_domainManager = domainManger;
 			ThemeComboBox.ItemsSource = _domainManager.GetAllThemes();
 			ThemeComboBox.SelectedIndex = 0;
-		}
+            ApplyThemeColor();
+        }
 
 		private void Button_Click(object sender, RoutedEventArgs e) //buy for you self
 		{
@@ -55,7 +56,43 @@ namespace Cadeaubons_Presentation.Windows
 
 		}
 
-		public async Task StartStripeAsync(VoucherDTO dTO)
+        private void ThemeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ApplyThemeColor();
+        }
+
+        private void ApplyThemeColor()
+        {
+            if (ThemeComboBox.SelectedItem is not ThemeDTO theme) return;
+
+            try
+            {
+                var color = (Color)ColorConverter.ConvertFromString(theme.PrimaryColor);
+                ThemeComboBox.Background = new SolidColorBrush(color);
+                ThemeComboBox.Foreground = new SolidColorBrush(GetContrastingForeground(color));
+            }
+            catch
+            {
+                // Ongeldige hex-waarde — laat de standaardkleur staan
+            }
+        }
+
+        // Helper: kies wit of zwart op basis van helderheid van de achtergrondkleur
+        private static Color GetContrastingForeground(Color bg)
+        {
+            // YIQ formule (perceived brightness)
+            double brightness = (bg.R * 299 + bg.G * 587 + bg.B * 114) / 1000.0;
+            return brightness > 128 ? Colors.Black : Colors.White;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerWindow window = new CustomerWindow(_domainManager, Session.CurrentUser);
+            window.Show();
+            this.Close();
+        }
+
+        public async Task StartStripeAsync(VoucherDTO dTO)
 		{
 			using var client = new HttpClient();
 
@@ -98,79 +135,92 @@ namespace Cadeaubons_Presentation.Windows
 
 			voucherDTO.BuyerId = Session.CurrentUser.Id;
 
-			if (!string.IsNullOrEmpty(EmailTextBox.Text))
-			{
-				UserDTO userDTO = _domainManager.GetByEmail(EmailTextBox.Text);
-				if (userDTO != null)
-				{
-					voucherDTO.UserId = userDTO.Id;
-				}
-				else
-				{
-					MessageHelper.ShowWarning($"Recipient email is not linked to active user");
-					return;
-				}
-
-			}
-
-
-			ThemeDTO themeDTO = (ThemeDTO)ThemeComboBox.SelectedItem;
-			voucherDTO.ThemeId = themeDTO.Id;
+            if (!string.IsNullOrEmpty(EmailTextBox.Text))
+            {
+                UserDTO userDTO = _domainManager.GetByEmail(EmailTextBox.Text);
+                if (userDTO != null)
+                {
+                    voucherDTO.UserId = userDTO.Id;
+                }
+                else
+                {
+                    MessageHelper.ShowWarning("E-mailadres ontvanger is niet gekoppeld aan een actieve gebruiker.");
+                    return;
+                }
+            }
 
 
-			foreach (PropertyInfo prop in voucherDTO.GetType().GetProperties())
-			{
-				var value = prop.GetValue(voucherDTO);
-				if (value == null)
-				{
-					MessageHelper.ShowWarning($"Please enter {prop.Name}.");
-					return;
-				}
+            ThemeDTO themeDTO = (ThemeDTO)ThemeComboBox.SelectedItem;
+            voucherDTO.ThemeId = themeDTO.Id;
 
 
-				if (value is string str && string.IsNullOrWhiteSpace(str))
-				{
-					MessageHelper.ShowWarning($"Please enter {prop.Name}.");
-					return;
-				}
-
-				if (value is int intValue)
-				{
-					if (intValue == 0)
-					{
-						if (prop.Name == "UserId")
-						{
-							MessageHelper.ShowWarning($"Enter Recipient Email Adress");
-						}
-						else
-						{
-							MessageHelper.ShowWarning($"{prop.Name} cannot be 0.");
-						}
-
-						return;
-					}
-
-				}
-
-			}
-			//ngrok http https://localhost:7011
-			try
-			{
-				await StartStripeAsync(voucherDTO);
-				MessageHelper.ShowInfo("Redirecting to payment...");
-			}
-			catch (Exception ex)
-			{
-
-				MessageHelper.ShowError(ex.Message);
-			}
+            foreach (PropertyInfo prop in voucherDTO.GetType().GetProperties())
+            {
+                var value = prop.GetValue(voucherDTO);
+                if (value == null)
+                {
+                    MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
 
 
+                if (value is string str && string.IsNullOrWhiteSpace(str))
+                {
+                    MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
+
+                if (value is int intValue)
+                {
+                    if (intValue == 0)
+                    {
+                        if (prop.Name == "UserId")
+                        {
+                            MessageHelper.ShowWarning("Voer het e-mailadres van de ontvanger in.");
+                        }
+                        else
+                        {
+                            MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                        }
+
+                        return;
+                    }
+
+                
+
+            }
+
+        }
+            //ngrok http https://localhost:7011
+            try
+            {
+                await StartStripeAsync(voucherDTO);
+                MessageHelper.ShowInfo("Doorverwijzen naar betaling...");
+            }
+            catch (Exception ex)
+            {
+
+                MessageHelper.ShowError(ex.Message);
+            }
 
 
 
-		}
 
 
-	}
+        }
+
+        private static string TranslateField(string propName) => propName switch
+        {
+            "InitialAmount" => "een bedrag",
+            "PurchaseDate" => "een aankoopdatum",
+            "BuyerId" => "de koper",
+            "UserId" => "het e-mailadres van de ontvanger",
+            "ThemeId" => "een thema",
+            _ => propName
+        };
+
+
+    }
+
+
 }

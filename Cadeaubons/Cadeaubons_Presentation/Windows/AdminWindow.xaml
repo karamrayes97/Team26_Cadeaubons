@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="Admin Panel" Height="450" Width="800"
+        Title="Beheerderspaneel" Height="450" Width="800"
         Background="White"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -15,14 +15,14 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" Margin="10">
-            <Button Content="Log out"
+            <Button Content="Afmelden"
                     Style="{StaticResource DangerButton}"
                     DockPanel.Dock="Right"
                     Click="BtnLogout_Click"/>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="🎁" FontSize="28" Margin="0,0,10,0"/>
-                <TextBlock Text="Admin Panel"
+                <TextBlock Text="🛠" FontSize="28" Margin="0,0,10,0"/>
+                <TextBlock Text="Beheerderspaneel"
                            Style="{StaticResource WindowTitle}"
                            VerticalAlignment="Center"/>
             </StackPanel>
@@ -33,12 +33,12 @@
                     VerticalAlignment="Center"
                     Width="300">
 
-            <Button Content="Manage Themes"
+            <Button Content="Thema's beheren"
                     Style="{StaticResource PrimaryButton}"
                     Margin="0,0,0,10"
                     Click="BtnManageThemes_Click"/>
 
-            <Button Content="Add Store"
+            <Button Content="Winkel toevoegen"
                     Style="{StaticResource PrimaryButton}"
                     Margin="0,0,0,10"
                     Click="Button_Click"/>

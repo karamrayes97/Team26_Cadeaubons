@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cadeaubons_Presentation.Windows"
         mc:Ignorable="d"
-        Title="ThemeListWindow" Height="450" Width="800">
+        Title="Alle thema's" Height="450" Width="800"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -14,7 +16,7 @@
 
         <DockPanel Grid.Row="0" Margin="10">
 
-            <Button Content="← Back"
+            <Button Content="← Terug"
                     Style="{StaticResource SecondaryButton}"
                     DockPanel.Dock="Right"
                     Width="100"
@@ -22,7 +24,7 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <TextBlock Text="🎨" FontSize="28" Margin="0,0,10,0"/>
-                <TextBlock Text="All Themes" Style="{StaticResource WindowTitle}" VerticalAlignment="Center"/>
+                <TextBlock Text="Alle thema's" Style="{StaticResource WindowTitle}" VerticalAlignment="Center"/>
             </StackPanel>
 
         </DockPanel>

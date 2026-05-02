@@ -41,43 +41,43 @@ namespace Cadeaubons_Presentation.Windows
 
             if (string.IsNullOrWhiteSpace(firstName))
             {
-                MessageHelper.ShowWarning("Please enter your first name.");
+                MessageHelper.ShowWarning("Voer je voornaam in.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(lastName))
             {
-                MessageHelper.ShowWarning("Please enter your last name.");
+                MessageHelper.ShowWarning("Voer je achternaam in.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(email))
             {
-                MessageHelper.ShowWarning("Please enter your email.");
+                MessageHelper.ShowWarning("Voer je e-mailadres in.");
                 return;
             }
 
             if (DpDateOfBirth.SelectedDate == null)
             {
-                MessageHelper.ShowWarning("Please select your date of birth.");
+                MessageHelper.ShowWarning("Selecteer je geboortedatum.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                MessageHelper.ShowWarning("Please enter a password.");
+                MessageHelper.ShowWarning("Voer een wachtwoord in.");
                 return;
             }
 
             if (password.Length < 8)
             {
-                MessageHelper.ShowWarning("Password must be at least 8 characters long.");
+                MessageHelper.ShowWarning("Wachtwoord moet minstens 8 tekens lang zijn.");
                 return;
             }
 
             if (password != confirmPassword)
             {
-                MessageHelper.ShowWarning("Passwords do not match.");
+                MessageHelper.ShowWarning("Wachtwoorden komen niet overeen.");
                 return;
             }
 
@@ -94,7 +94,7 @@ namespace Cadeaubons_Presentation.Windows
 
                 _dm.RegisterUser(request);
 
-                MessageHelper.ShowInfo("Registration successful! You can now log in.");
+                MessageHelper.ShowInfo("Registratie geslaagd! Je kan nu aanmelden.");
 
                 // Go back to login screen
                 this.DialogResult = true;

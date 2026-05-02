@@ -35,8 +35,8 @@ namespace Cadeaubons_Presentation.Windows
             InitializeComponent();
             _dm = dm;
             _existingTheme = null;
-            TxtTitle.Text = "Add New Theme";
-            BtnSave.Content = "Add Theme";
+            TxtTitle.Text = "Nieuw thema toevoegen";
+            BtnSave.Content = "Thema toevoegen";
             LoadEmojiPalette();
             LoadColorPalette();
         }
@@ -47,8 +47,8 @@ namespace Cadeaubons_Presentation.Windows
             InitializeComponent();
             _dm = dm;
             _existingTheme = theme;
-            TxtTitle.Text = "Edit Theme";
-            BtnSave.Content = "Save Changes";
+            TxtTitle.Text = "Thema bewerken";
+            BtnSave.Content = "Wijzigingen opslaan";
 
             TxtName.Text = theme.Name;
             TxtDescription.Text = theme.Description;
@@ -246,7 +246,7 @@ namespace Cadeaubons_Presentation.Windows
             catch
             {
                 ColorPreview.Background = new SolidColorBrush(Colors.LightGray);
-                TxtSelectedColor.Text = "Invalid color";
+                TxtSelectedColor.Text = "Ongeldige kleur";
             }
         }
 
@@ -258,19 +258,19 @@ namespace Cadeaubons_Presentation.Windows
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                MessageHelper.ShowWarning("Please enter a theme name.");
+                MessageHelper.ShowWarning("Voer een themanaam in.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(iconPath))
             {
-                MessageHelper.ShowWarning("Please select an icon.");
+                MessageHelper.ShowWarning("Selecteer een icoon.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(_selectedColor))
             {
-                MessageHelper.ShowWarning("Please select a color.");
+                MessageHelper.ShowWarning("Selecteer een kleur.");
                 return;
             }
 
@@ -279,13 +279,13 @@ namespace Cadeaubons_Presentation.Windows
                 if (_existingTheme == null)
                 {
                     _dm.AddTheme(name, description, iconPath, _selectedColor);
-                    MessageHelper.ShowInfo("Theme added successfully!");
+                    MessageHelper.ShowInfo("Thema succesvol toegevoegd!");
                 }
                 else
                 {
                     _dm.UpdateTheme(_existingTheme.Id, name, description,
                         iconPath, _selectedColor);
-                    MessageHelper.ShowInfo("Theme updated successfully!");
+                    MessageHelper.ShowInfo("Thema succesvol gewijzigd!");
                 }
 
                 this.DialogResult = true;

@@ -40,13 +40,13 @@ namespace Cadeaubons_Presentation.Windows
 
             if (string.IsNullOrWhiteSpace(email))
             {
-                MessageHelper.ShowWarning("Please enter your email.");
+                MessageHelper.ShowWarning("Voer je e-mailadres in.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                MessageHelper.ShowWarning("Please enter your password.");
+                MessageHelper.ShowWarning("Voer je wachtwoord in.");
                 return;
             }
 
@@ -57,7 +57,7 @@ namespace Cadeaubons_Presentation.Windows
 
                 if (user == null)
                 {
-                    MessageHelper.ShowError("Invalid email or password.");
+                    MessageHelper.ShowError("Ongeldig e-mailadres of wachtwoord.");
                     return;
                 }
 
