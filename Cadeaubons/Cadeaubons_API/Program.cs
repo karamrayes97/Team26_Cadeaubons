@@ -4,6 +4,8 @@ using Cadeaubons_API.Services.Payment;
 using Cadeaubons_Domain;
 using Cadeaubons_Domain.DTO;
 using Cadeaubons_Domain.Email;
+using Cadeaubons_Domain.Repo;
+using Cadeaubons_Domain.Services;
 using Stripe;
 using Stripe.Checkout;
 
@@ -24,6 +26,18 @@ namespace Cadeaubons_API
             builder.Services.AddScoped<StripeService>();
             builder.Services.AddScoped<VoucherPaymentService>();
 			builder.Services.AddScoped<DomainManager>();
+			builder.Services.AddScoped<Repository>();
+			builder.Services.AddScoped<UserService>();
+			builder.Services.AddScoped<CityService>();
+			builder.Services.AddScoped<StoreService>();
+			builder.Services.AddScoped<ThemeService>();
+			builder.Services.AddScoped<VoucherService>();
+			builder.Services.AddScoped<PaymentService>();
+			builder.Services.AddScoped<ConsumptionService>();
+
+
+
+
 
 
 			builder.Services.AddCors(options =>

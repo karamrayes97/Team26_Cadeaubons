@@ -78,7 +78,7 @@ namespace Cadeaubons_Presentation.Windows
 
                 if (user != null)
                 {
-                    Session.CurrentUser = user;
+                    //Session.CurrentUser = user;
                 }
 
 
