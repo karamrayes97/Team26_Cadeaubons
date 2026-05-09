@@ -49,7 +49,7 @@ namespace Cadeaubons_Presentation.Windows
 
 		private void PurchaseButton_Click(object sender, RoutedEventArgs e)
 		{
-            BuyGiftCardWindow window = new BuyGiftCardWindow(_dm);
+            BuyGiftCardWindow window = new BuyGiftCardWindow(_dm, _currentUser);
             window.Show();
             this.Close();
         }

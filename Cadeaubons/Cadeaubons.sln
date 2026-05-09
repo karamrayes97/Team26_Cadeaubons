@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_StartUp", "Cadea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cadeaubons_API", "Cadeaubons_API\Cadeaubons_API.csproj", "{DE08566C-DC82-4E29-AA97-7E9CBE0FE218}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emailtestapp", "emailtestapp\emailtestapp.csproj", "{2CDB2911-1B50-4AE0-88D6-C8C7CF886404}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DE08566C-DC82-4E29-AA97-7E9CBE0FE218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE08566C-DC82-4E29-AA97-7E9CBE0FE218}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE08566C-DC82-4E29-AA97-7E9CBE0FE218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CDB2911-1B50-4AE0-88D6-C8C7CF886404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CDB2911-1B50-4AE0-88D6-C8C7CF886404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CDB2911-1B50-4AE0-88D6-C8C7CF886404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CDB2911-1B50-4AE0-88D6-C8C7CF886404}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

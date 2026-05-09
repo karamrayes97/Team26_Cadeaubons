@@ -39,11 +39,14 @@ namespace Cadeaubons_Presentation.Windows
 	public partial class BuyGiftCardWindow : Window
 	{
 		private DomainManager _domainManager;
-		public BuyGiftCardWindow(DomainManager domainManger)
+        private readonly UserDTO _currentUser;
+
+        public BuyGiftCardWindow(DomainManager domainManger, UserDTO currentUser)
 		{
 			InitializeComponent();
 			_domainManager = domainManger;
-			ThemeComboBox.ItemsSource = _domainManager.GetAllThemes();
+            _currentUser = currentUser;
+            ThemeComboBox.ItemsSource = _domainManager.GetAllThemes();
 			ThemeComboBox.SelectedIndex = 0;
             ApplyThemeColor();
         }
@@ -51,7 +54,7 @@ namespace Cadeaubons_Presentation.Windows
 		private void Button_Click(object sender, RoutedEventArgs e) //buy for you self
 		{
 			EmailTextBox.Text = "";
-			EmailTextBox.Text = Session.CurrentUser.Email;
+			EmailTextBox.Text = _currentUser.Email;
 
 
 		}
@@ -87,7 +90,7 @@ namespace Cadeaubons_Presentation.Windows
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            CustomerWindow window = new CustomerWindow(_domainManager, Session.CurrentUser);
+            CustomerWindow window = new CustomerWindow(_domainManager, _currentUser);
             window.Show();
             this.Close();
         }
@@ -127,13 +130,15 @@ namespace Cadeaubons_Presentation.Windows
 			VoucherDTO voucherDTO = new VoucherDTO();
 			voucherDTO.PurchaseDate = DateTime.Now;
 
-			bool resultBool = int.TryParse(InitialAmountTextBox.Text, out int result);
+			bool resultBool = decimal.TryParse(InitialAmountTextBox.Text, out decimal result);
 			if (resultBool)
 			{
 				voucherDTO.InitialAmount = result;
 			}
 
-			voucherDTO.BuyerId = Session.CurrentUser.Id;
+			voucherDTO.BuyerId = _currentUser.Id;
+            voucherDTO.BuyerFullName = $"{_currentUser.FirstName} {_currentUser.LastName}";
+            
 
             if (!string.IsNullOrEmpty(EmailTextBox.Text))
             {
@@ -141,6 +146,8 @@ namespace Cadeaubons_Presentation.Windows
                 if (userDTO != null)
                 {
                     voucherDTO.UserId = userDTO.Id;
+                    voucherDTO.UserEmail = userDTO.Email;
+                    voucherDTO.UserFullName = $"{userDTO.FirstName} {userDTO.LastName}";
                 }
                 else
                 {
@@ -152,6 +159,7 @@ namespace Cadeaubons_Presentation.Windows
 
             ThemeDTO themeDTO = (ThemeDTO)ThemeComboBox.SelectedItem;
             voucherDTO.ThemeId = themeDTO.Id;
+            voucherDTO.ThemeName = themeDTO.Name;
 
 
             foreach (PropertyInfo prop in voucherDTO.GetType().GetProperties())

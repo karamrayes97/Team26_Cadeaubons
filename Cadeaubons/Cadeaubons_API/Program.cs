@@ -1,11 +1,11 @@
+using Cadeaubons_API.Options;
+using Cadeaubons_API.Services.Email;
+using Cadeaubons_API.Services.Payment;
 using Cadeaubons_Domain;
 using Cadeaubons_Domain.DTO;
-using Cadeaubons_Domain.Model;
-using Cadeaubons_Domain.Repo;
-using Cadeaubons_Domain.Services;
+using Cadeaubons_Domain.Email;
 using Stripe;
 using Stripe.Checkout;
-using System.Runtime.CompilerServices;
 
 namespace Cadeaubons_API
 {
@@ -15,19 +15,15 @@ namespace Cadeaubons_API
 		public static void Main(string[] args)
 		{
 			var builder = WebApplication.CreateBuilder(args);
-			builder.Services.AddScoped<UserService>();
-			builder.Services.AddScoped<CityService>();
-			builder.Services.AddScoped<StoreService>();
-			builder.Services.AddScoped<ThemeService>();
-			builder.Services.AddScoped<Repository>();
-			builder.Services.AddScoped<VoucherService>();
-			builder.Services.AddScoped<PaymentService>();
-			builder.Services.AddScoped<ConsumptionService>();
+			
+			builder.Services.Configure<MailtrapOptions>(
+				builder.Configuration.GetSection("Mailtrap")
+			);
 
-
+            builder.Services.AddScoped<IEmailService, MailtrapEmailService>();
+            builder.Services.AddScoped<StripeService>();
+            builder.Services.AddScoped<VoucherPaymentService>();
 			builder.Services.AddScoped<DomainManager>();
-
-			VoucherDTO VoucherDTOStripe = new VoucherDTO();
 
 
 			builder.Services.AddCors(options =>
@@ -43,88 +39,60 @@ namespace Cadeaubons_API
 			app.UseHttpsRedirection();
 			app.UseCors("AllowAll");
 
-			StripeConfiguration.ApiKey = "sk_test_51TP5XM5UFaYg1ZE3pevQkkl2NQOEWM3czwsmtgJsPM4goTmA84KiPafdZ2XjkfVRGqAVK9gCKDLDZ48gENWjGMz4000xqxC6r3";
+			StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
-			app.MapPost("/create-checkout-session", async (VoucherDTO dTO) =>
-			{
-				VoucherDTOStripe = dTO;
-				var options = new SessionCreateOptions
+            app.MapPost(
+				"/create-checkout-session",
+                (VoucherDTO dto, StripeService stripeService) =>
 				{
-					PaymentMethodTypes = new List<string> { "card" },
-					LineItems = new List<SessionLineItemOptions>
-					{
-						new SessionLineItemOptions
-						{
-							Quantity = 1,
-							PriceData = new SessionLineItemPriceDataOptions
-							{
-								Currency = "eur",
-								UnitAmount = (long)(dTO.InitialAmount * 100),
-								ProductData = new SessionLineItemPriceDataProductDataOptions
-								{
-									Name = "Test Product"
-								}
-							}
-						}
-					},
-					Mode = "payment",
-					SuccessUrl = "https://localhost:7011/success",
-					CancelUrl = "https://localhost:7011/cancel"
-				};
+					var session = stripeService.CreateCheckout(dto);
 
-				var service = new SessionService();
-				var session = await service.CreateAsync(options);
+                    if (session is null)
+                        return Results.Problem("Failed to create Stripe session");
 
-				return Results.Ok(new { url = session.Url });
-			});
+                    return Results.Ok(new { url = session.Url });
+				}
+			);
 
-			app.MapPost("/stripe-webhook", async (HttpRequest request, DomainManager _domainManager) =>
+            app.MapPost(
+				"/stripe-webhook", 
+				async (HttpRequest request, VoucherPaymentService paymentService) =>
 			{
 				var json = await new StreamReader(request.Body).ReadToEndAsync();
 
-				//var stripeEvent = EventUtility.ParseEvent(json);
+                Event stripeEvent;
 
-				var endpointSecret = "whsec_Oe7HhEu1jVL3viLHQNF83P7POGX5Njhr";
+                try
+                {
+                    stripeEvent = EventUtility.ConstructEvent(
+                        json,
+                        request.Headers["Stripe-Signature"],
+                        builder.Configuration["Stripe:WebhookSecret"]
+                    );
+                }
+                catch
+                {
+                    return Results.BadRequest("Invalid Stripe signature");
+                }
 
-				var stripeEvent = EventUtility.ConstructEvent(
-					json,
-					request.Headers["Stripe-Signature"],
-					endpointSecret
-				);
+                if (stripeEvent.Type != EventTypes.CheckoutSessionCompleted)
+                    return Results.Ok();
 
-				if (stripeEvent.Type == "checkout.session.completed")
-				{
-					var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+                var session = stripeEvent.Data.Object as Session;
 
-					Console.WriteLine("PAYMENT SUCCESS:");
-					Console.WriteLine(session.Id);
+                if (session is null)
+                    return Results.Ok();
 
+                try
+                {
+                    await paymentService.HandleSuccess(session);
+                }
+                catch 
+                {
+                    return Results.Ok();
+                }
 
-
-					try
-					{
-						Voucher voucher = _domainManager.AddVoucher(VoucherDTOStripe);
-
-						PaymentDTO paymentDTO = new PaymentDTO();
-
-						paymentDTO.StripeId = session.Id;
-						paymentDTO.Amount = VoucherDTOStripe.InitialAmount;
-						paymentDTO.PaymentSuccess = true;
-						paymentDTO.Date = DateTime.Now;
-						paymentDTO.VoucherId = voucher.Id;
-
-						_domainManager.AddPayment(paymentDTO);
-
-
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-						return Results.Problem(ex.Message);
-					}
-				}
-
-				return Results.Ok();
+                return Results.Ok();
 			});
 
 			app.MapGet("/success", () =>

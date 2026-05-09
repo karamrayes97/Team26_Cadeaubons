@@ -8,17 +8,21 @@ namespace Cadeaubons_Domain.DTO
 {
 	public class VoucherDTO
 	{
-		//public int Id { get; set; } = 9999;
-		public int InitialAmount { get; set; }
+		public decimal InitialAmount { get; set; }
 
 		public DateTime PurchaseDate { get; set; }
 
 		public int BuyerId { get; set; }
 
-		public int UserId { get; set; }
+        public string BuyerFullName { get; set; } = string.Empty;
 
-		public int ThemeId { get; set; }
+        public int UserId { get; set; }
+        public string UserEmail { get; set; } = string.Empty;
+        public string UserFullName { get; set; } = string.Empty;
 
-		//public string Number { get; set; }
-	}
+        public int ThemeId { get; set; }
+        public string ThemeName { get; set; } = string.Empty;
+
+        
+    }
 }
