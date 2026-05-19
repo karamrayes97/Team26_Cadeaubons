@@ -49,7 +49,9 @@ namespace Cadeaubons_Presentation.Windows
         }
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
-        {
+        { 
+            string input = TxtAmount.Text.Trim().Replace('.', ',');//zodat gebruikers . en , kunnen gebruiken als decimaal teken
+                    
             if (!decimal.TryParse(TxtAmount.Text, out decimal amount))
             {
                 MessageHelper.ShowWarning("Voer een geldig bedrag in.");

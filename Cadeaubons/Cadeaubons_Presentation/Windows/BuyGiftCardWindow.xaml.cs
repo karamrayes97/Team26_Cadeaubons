@@ -23,6 +23,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading.Tasks;
+
 
 namespace Cadeaubons_Presentation.Windows
 {
@@ -124,21 +126,20 @@ namespace Cadeaubons_Presentation.Windows
 			});
 		}
 
-		private async void ButtonBuy_Click(object sender, RoutedEventArgs e)
-		{
+        private async void ButtonBuy_Click(object sender, RoutedEventArgs e)
+        {
+            VoucherDTO voucherDTO = new VoucherDTO();
+            voucherDTO.PurchaseDate = DateTime.Now;
 
-			VoucherDTO voucherDTO = new VoucherDTO();
-			voucherDTO.PurchaseDate = DateTime.Now;
+            string input = InitialAmountTextBox.Text.Trim().Replace('.', ',');
+            bool resultBool = decimal.TryParse(input, out decimal result);
+            if (resultBool)
+            {
+                voucherDTO.InitialAmount = result;
+            }
 
-			bool resultBool = decimal.TryParse(InitialAmountTextBox.Text, out decimal result);
-			if (resultBool)
-			{
-				voucherDTO.InitialAmount = result;
-			}
-
-			voucherDTO.BuyerId = _currentUser.Id;
+            voucherDTO.BuyerId = _currentUser.Id;
             voucherDTO.BuyerFullName = $"{_currentUser.FirstName} {_currentUser.LastName}";
-            
 
             if (!string.IsNullOrEmpty(EmailTextBox.Text))
             {
@@ -156,12 +157,11 @@ namespace Cadeaubons_Presentation.Windows
                 }
             }
 
-
             ThemeDTO themeDTO = (ThemeDTO)ThemeComboBox.SelectedItem;
             voucherDTO.ThemeId = themeDTO.Id;
             voucherDTO.ThemeName = themeDTO.Name;
 
-
+            // Validatie van DTO-velden
             foreach (PropertyInfo prop in voucherDTO.GetType().GetProperties())
             {
                 var value = prop.GetValue(voucherDTO);
@@ -171,52 +171,65 @@ namespace Cadeaubons_Presentation.Windows
                     return;
                 }
 
-
                 if (value is string str && string.IsNullOrWhiteSpace(str))
                 {
                     MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
                     return;
                 }
 
-                if (value is int intValue)
+                if (value is int intValue && intValue == 0)
                 {
-                    if (intValue == 0)
-                    {
-                        if (prop.Name == "UserId")
-                        {
-                            MessageHelper.ShowWarning("Voer het e-mailadres van de ontvanger in.");
-                        }
-                        else
-                        {
-                            MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
-                        }
+                    if (prop.Name == "UserId")
+                        MessageHelper.ShowWarning("Voer het e-mailadres van de ontvanger in.");
+                    else
+                        MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
 
-                        return;
-                    }
-
-                
-
+                if (value is decimal decValue && decValue == 0)
+                {
+                    MessageHelper.ShowWarning($"Vul {TranslateField(prop.Name)} in.");
+                    return;
+                }
             }
 
-        }
-            //ngrok http https://localhost:7011
+            // Start de betaalflow
             try
             {
-                await StartStripeAsync(voucherDTO);
-                MessageHelper.ShowInfo("Doorverwijzen naar betaling...");
+                // Onthoud hoeveel bons de gebruiker nu heeft
+                int countBefore = _domainManager.GetVouchersForUser(_currentUser.Id).Count;
+
+                // Toon "bezig" status op de knop
+                ButtonBuy.IsEnabled = false;
+                string originalContent = ButtonBuy.Content.ToString();
+                ButtonBuy.Content = "⏳ Betaling wordt verwerkt...";
+
+                await StartStripeAsync(voucherDTO);  //ngrok http https://localhost:7011
+
+                // Wacht tot de webhook een nieuwe bon heeft toegevoegd (max 60 seconden)
+                bool success = await WaitForVoucherAsync(countBefore, timeoutSeconds: 60);
+
+                // Herstel de knop (voor het geval het venster nog open blijft bij fout)
+                ButtonBuy.Content = originalContent;
+                ButtonBuy.IsEnabled = true;
+
+                PaymentResultWindow resultWindow =
+                    new PaymentResultWindow(_domainManager, _currentUser, success);
+                resultWindow.Show();
+                this.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                MessageHelper.ShowError(ex.Message);
+                // Stripe niet bereikbaar of andere onverwachte fout
+                PaymentResultWindow resultWindow =
+                    new PaymentResultWindow(_domainManager, _currentUser, false);
+                resultWindow.Show();
+                this.Close();
             }
-
-
-
-
-
         }
 
+
+        //ngrok http https://localhost:7011
         private static string TranslateField(string propName) => propName switch
         {
             "InitialAmount" => "een bedrag",
@@ -226,6 +239,26 @@ namespace Cadeaubons_Presentation.Windows
             "ThemeId" => "een thema",
             _ => propName
         };
+
+        
+        /// Pollt de databank tot er een nieuwe bon verschijnt voor de huidige gebruiker,
+        /// of tot de timeout verstrijkt. Geeft true terug als er een nieuwe bon is gedetecteerd.
+       
+        private async Task<bool> WaitForVoucherAsync(int countBefore, int timeoutSeconds)
+        {
+            DateTime deadline = DateTime.Now.AddSeconds(timeoutSeconds);
+
+            while (DateTime.Now < deadline)
+            {
+                int countNow = _domainManager.GetVouchersForUser(_currentUser.Id).Count;
+                if (countNow > countBefore)
+                    return true;
+
+                await Task.Delay(1000); // check elke seconde
+            }
+
+            return false;
+        }
 
 
     }

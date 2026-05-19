@@ -58,7 +58,10 @@ namespace Cadeaubons_Domain.Services
 				.Select(v => new VoucherOverviewDTO(
 					v,
 					consumptions.Where(c => c.VoucherId == v.Id)))
-				.ToList();
+                .Where(dto => dto.RemainingAmount > 0)//om lege bonnen niet weer te geven
+                                                      //
+
+                .ToList();
 		}
     } 
 }
